@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Quest - Level Up Your Watching!</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        .game-header {
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 3px solid #ffd700;
+            position: relative;
+        }
+        
+        .level-display {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 0 0 20px #ffd700;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #ffd700; }
+            to { text-shadow: 0 0 30px #ffd700, 0 0 40px #ffd700; }
+        }
+        
+        .stats-bar {
+            display: flex;
+            justify-content: space-around;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            padding: 10px 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            margin: 5px;
+        }
+        
+        .xp-bar {
+            width: 100%;
+            height: 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            margin: 10px 0;
+            overflow: hidden;
+            border: 2px solid #ffd700;
+        }
+        
+        .xp-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00cc6a);
+            transition: width 0.5s ease;
+            border-radius: 8px;
+        }
+        
+        .quest-zones {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .quest-zone {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quest-zone:hover {
+            transform: translateY(-5px);
+            border-color: #ffd700;
+            box-shadow: 0 10px 30px rgba(255,215,0,0.3);
+        }
+        
+        .zone-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+        
+        .zone-icon {
+            font-size: 2em;
+            margin-right: 10px;
+        }
+        
+        .video-input {
+            display: flex;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+        
+        .video-input input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.9);
+            color: #333;
+        }
+        
+        .add-btn {
+            padding: 10px 15px;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .add-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255,107,107,0.4);
+        }
+        
+        .video-list {
+            min-height: 100px;
+        }
+        
+        .video-item {
+            background: rgba(255,255,255,0.15);
+            margin: 8px 0;
+            padding: 12px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-left: 4px solid transparent;
+        }
+        
+        .video-item:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateX(5px);
+        }
+        
+        .priority .video-item { border-left-color: #ff6b6b; }
+        .backlog .video-item { border-left-color: #ffd700; }
+        .completed .video-item { border-left-color: #00ff88; }
+        
+        .video-title {
+            flex: 1;
+            font-weight: 500;
+        }
+        
+        .video-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .action-btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .watch-btn {
+            background: #00ff88;
+            color: #000;
+        }
+        
+        .delete-btn {
+            background: #ff4757;
+            color: white;
+        }
+        
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .achievement-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            z-index: 1000;
+            transition: all 0.5s ease;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .achievement-popup.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .achievement-popup h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            background: #ffd700;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .quest-counter {
+            font-size: 1.2em;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .quest-zones {
+                grid-template-columns: 1fr;
+                padding: 10px;
+            }
+            
+            .video-input {
+                flex-direction: column;
+            }
+            
+            .stats-bar {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <div class="game-header">
+        <div class="level-display">LEVEL <span id="playerLevel">1</span></div>
+        <div class="stats-bar">
+            <div class="stat">
+                <div>🏆 XP</div>
+                <div id="totalXP">0</div>
+            </div>
+            <div class="stat">
+                <div>⚡ Streak</div>
+                <div id="watchStreak">0</div>
+            </div>
+            <div class="stat">
+                <div>🎯 Total Watched</div>
+                <div id="totalWatched">0</div>
+            </div>
+            <div class="stat">
+                <div>🎮 Achievement Score</div>
+                <div id="achievementScore">0</div>
+            </div>
+        </div>
+        <div class="xp-bar">
+            <div class="xp-fill" id="xpFill"></div>
+        </div>
+        <div class="quest-counter">XP to next level: <span id="xpToNext">100</span></div>
+    </div>
+
+    <div class="quest-zones">
+        <div class="quest-zone priority">
+            <div class="zone-header">
+                <span class="zone-icon">🔥</span>
+                <span>PRIORITY QUESTS</span>
+            </div>
+            <div class="video-input">
+                <input type="text" placeholder="Add urgent video quest..." id="priorityInput">
+                <button class="add-btn" onclick="addVideo('priority')">Add Quest</button>
+            </div>
+            <div class="video-list" id="priorityList"></div>
+        </div>
+
+        <div class="quest-zone backlog">
+            <div class="zone-header">
+                <span class="zone-icon">📚</span>
+                <span>BACKLOG ADVENTURES</span>
+            </div>
+            <div class="video-input">
+                <input type="text" placeholder="Add to backlog..." id="backlogInput">
+                <button class="add-btn" onclick="addVideo('backlog')">Add Quest</button>
+            </div>
+            <div class="video-list" id="backlogList"></div>
+        </div>
+
+        <div class="quest-zone completed">
+            <div class="zone-header">
+                <span class="zone-icon">🏆</span>
+                <span>COMPLETED QUESTS</span>
+            </div>
+            <div class="video-list" id="completedList"></div>
+        </div>
+    </div>
+
+    <div class="achievement-popup" id="achievementPopup">
+        <h2>🎉 ACHIEVEMENT UNLOCKED! 🎉</h2>
+        <p id="achievementText"></p>
+    </div>
+
+    <script>
+        let gameData = {
+            level: 1,
+            xp: 0,
+            streak: 0,
+            totalWatched: 0,
+            achievementScore: 0,
+            videos: {
+                priority: [],
+                backlog: [],
+                completed: []
+            },
+            lastWatchDate: null
+        };
+
+        const achievements = [
+            { id: 'first_watch', name: 'First Steps', desc: 'Complete your first video!', xp: 50, condition: () => gameData.totalWatched >= 1 },
+            { id: 'streak_3', name: 'Getting Warmed Up', desc: '3 day watching streak!', xp: 100, condition: () => gameData.streak >= 3 },
+            { id: 'watch_10', name: 'Video Veteran', desc: 'Watch 10 videos total!', xp: 200, condition: () => gameData.totalWatched >= 10 },
+            { id: 'streak_7', name: 'Weekly Warrior', desc: '7 day watching streak!', xp: 300, condition: () => gameData.streak >= 7 },
+            { id: 'priority_clear', name: 'Priority Master', desc: 'Clear all priority quests!', xp: 150, condition: () => gameData.videos.priority.length === 0 && gameData.totalWatched > 0 },
+        ];
+
+        let unlockedAchievements = [];
+
+        function addVideo(category) {
+            const input = document.getElementById(`${category}Input`);
+            if (!input.value.trim()) return;
+
+            const video = {
+                id: Date.now(),
+                title: input.value.trim(),
+                dateAdded: new Date(),
+                category: category
+            };
+
+            gameData.videos[category].push(video);
+            input.value = '';
+            
+            // Add XP for adding videos
+            gainXP(10);
+            updateDisplay();
+            createParticles();
+        }
+
+        function watchVideo(id, currentCategory) {
+            const video = gameData.videos[currentCategory].find(v => v.id === id);
+            if (!video) return;
+
+            // Remove from current category
+            gameData.videos[currentCategory] = gameData.videos[currentCategory].filter(v => v.id !== id);
+            
+            // Add to completed
+            video.category = 'completed';
+            video.completedDate = new Date();
+            gameData.videos.completed.push(video);
+
+            // Calculate XP based on category
+            let xpGain = 50;
+            if (currentCategory === 'priority') xpGain = 100;
+            if (currentCategory === 'backlog') xpGain = 75;
+
+            // Update streak
+            const today = new Date().toDateString();
+            const yesterday = new Date(Date.now() - 86400000).toDateString();
+            
+            if (gameData.lastWatchDate === yesterday || gameData.lastWatchDate === today) {
+                if (gameData.lastWatchDate !== today) {
+                    gameData.streak++;
+                    xpGain += gameData.streak * 10; // Bonus XP for streaks
+                }
+            } else if (gameData.lastWatchDate !== today) {
+                gameData.streak = 1;
+            }
+            
+            gameData.lastWatchDate = today;
+            gameData.totalWatched++;
+
+            gainXP(xpGain);
+            checkAchievements();
+            updateDisplay();
+            createCelebration();
+        }
+
+        function deleteVideo(id, category) {
+            gameData.videos[category] = gameData.videos[category].filter(v => v.id !== id);
+            updateDisplay();
+        }
+
+        function gainXP(amount) {
+            gameData.xp += amount;
+            
+            // Level up check
+            const xpNeeded = gameData.level * 100;
+            if (gameData.xp >= xpNeeded) {
+                gameData.level++;
+                gameData.xp -= xpNeeded;
+                showAchievement(`LEVEL UP! You're now Level ${gameData.level}!`, '🚀');
+                createLevelUpEffect();
+            }
+        }
+
+        function checkAchievements() {
+            achievements.forEach(achievement => {
+                if (!unlockedAchievements.includes(achievement.id) && achievement.condition()) {
+                    unlockedAchievements.push(achievement.id);
+                    gameData.achievementScore += achievement.xp;
+                    gainXP(achievement.xp);
+                    showAchievement(achievement.name + ': ' + achievement.desc, '🏆');
+                }
+            });
+        }
+
+        function showAchievement(text, icon = '🎉') {
+            const popup = document.getElementById('achievementPopup');
+            const textElement = document.getElementById('achievementText');
+            textElement.innerHTML = `${icon} ${text}`;
+            
+            popup.classList.add('show');
+            setTimeout(() => {
+                popup.classList.remove('show');
+            }, 3000);
+        }
+
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 5; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.width = particle.style.height = (Math.random() * 10 + 5) + 'px';
+                particle.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(particle);
+                
+                setTimeout(() => particle.remove(), 3000);
+            }
+        }
+
+        function createCelebration() {
+            const colors = ['#ffd700', '#ff6b6b', '#00ff88', '#74b9ff'];
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'fixed';
+                particle.style.left = '50%';
+                particle.style.top = '50%';
+                particle.style.width = particle.style.height = '10px';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.borderRadius = '50%';
+                particle.style.pointerEvents = 'none';
+                particle.style.zIndex = '999';
+                
+                const angle = (i / 15) * Math.PI * 2;
+                const velocity = 200 + Math.random() * 100;
+                
+                document.body.appendChild(particle);
+                
+                particle.animate([
+                    { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
+                    { 
+                        transform: `translate(${Math.cos(angle) * velocity - 50}px, ${Math.sin(angle) * velocity - 50}px) scale(0)`,
+                        opacity: 0 
+                    }
+                ], {
+                    duration: 1000,
+                    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                }).onfinish = () => particle.remove();
+            }
+        }
+
+        function createLevelUpEffect() {
+            document.body.style.animation = 'none';
+            setTimeout(() => {
+                document.body.style.animation = 'flash 0.5s ease-in-out';
+            }, 10);
+        }
+
+        function updateDisplay() {
+            document.getElementById('playerLevel').textContent = gameData.level;
+            document.getElementById('totalXP').textContent = gameData.xp;
+            document.getElementById('watchStreak').textContent = gameData.streak;
+            document.getElementById('totalWatched').textContent = gameData.totalWatched;
+            document.getElementById('achievementScore').textContent = gameData.achievementScore;
+            
+            const xpNeeded = gameData.level * 100;
+            const xpProgress = (gameData.xp / xpNeeded) * 100;
+            document.getElementById('xpFill').style.width = xpProgress + '%';
+            document.getElementById('xpToNext').textContent = xpNeeded - gameData.xp;
+
+            // Update video lists
+            ['priority', 'backlog', 'completed'].forEach(category => {
+                const list = document.getElementById(`${category}List`);
+                list.innerHTML = '';
+                
+                gameData.videos[category].forEach(video => {
+                    const item = document.createElement('div');
+                    item.className = 'video-item';
+                    
+                    const isCompleted = category === 'completed';
+                    const watchButtonText = isCompleted ? '🎉' : '✅';
+                    const watchButtonAction = isCompleted ? '' : `onclick="watchVideo(${video.id}, '${category}')"`;
+                    
+                    item.innerHTML = `
+                        <div class="video-title">${video.title}</div>
+                        <div class="video-actions">
+                            ${!isCompleted ? `<button class="action-btn watch-btn" ${watchButtonAction}>${watchButtonText}</button>` : ''}
+                            <button class="action-btn delete-btn" onclick="deleteVideo(${video.id}, '${category}')">🗑️</button>
+                        </div>
+                    `;
+                    
+                    list.appendChild(item);
+                });
+            });
+        }
+
+        // Add some CSS for flash effect
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes flash {
+                0% { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+                50% { background: linear-gradient(135deg, #ffd700 0%, #ff6b6b 100%); }
+                100% { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Handle Enter key for inputs
+        ['priority', 'backlog'].forEach(category => {
+            document.getElementById(`${category}Input`).addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    addVideo(category);
+                }
+            });
+        });
+
+        // Initialize display
+        updateDisplay();
+        
+        // Welcome message
+        setTimeout(() => {
+            showAchievement('Welcome to Video Quest! Start adding videos to begin your journey!', '🎮');
+        }, 1000);
+
+        // Create some ambient particles
+        setInterval(createParticles, 2000);
+    </script>
+</body>
+</html>
