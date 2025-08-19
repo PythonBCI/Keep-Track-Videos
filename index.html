@@ -215,24 +215,197 @@
             transform: scale(1.1);
         }
         
-        /* Desktop Cat - Proper Sprite Atlas */
+        /* CSS Desktop Cat - Guaranteed to Work! */
         .desktop-cat {
             position: fixed;
-            width: 64px; /* 32px * 2 scale */
-            height: 64px; /* 32px * 2 scale */
-            background-image: url('orange_tabby_000.png');
-            background-repeat: no-repeat;
-            background-size: 256px 1344px; /* 128px * 2 scale, 672px * 2 scale */
+            width: 60px;
+            height: 45px;
             z-index: 9999;
             cursor: pointer;
             transition: transform 0.3s ease;
-            image-rendering: pixelated;
-            image-rendering: -moz-crisp-edges;
-            image-rendering: crisp-edges;
         }
         
         .desktop-cat:hover {
             transform: scale(1.1);
+        }
+        
+        /* Cat body */
+        .cat-body {
+            position: absolute;
+            width: 35px;
+            height: 20px;
+            background: var(--cat-color, #ff6b35);
+            border-radius: 50%;
+            bottom: 8px;
+            left: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        /* Cat head */
+        .cat-head {
+            position: absolute;
+            width: 25px;
+            height: 22px;
+            background: var(--cat-color, #ff6b35);
+            border-radius: 50%;
+            bottom: 20px;
+            left: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        /* Cat ears */
+        .cat-ear {
+            position: absolute;
+            width: 8px;
+            height: 12px;
+            background: var(--cat-color, #ff6b35);
+            border-radius: 50% 50% 0 0;
+            top: 2px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .cat-ear.left { left: 3px; }
+        .cat-ear.right { right: 3px; }
+        
+        .cat-ear::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 7px;
+            background: #ff4757;
+            border-radius: 50%;
+            top: 3px;
+            left: 2px;
+        }
+        
+        /* Cat tail */
+        .cat-tail {
+            position: absolute;
+            width: 5px;
+            height: 18px;
+            background: var(--cat-color, #ff6b35);
+            border-radius: 50%;
+            bottom: 12px;
+            left: 2px;
+            transform-origin: bottom;
+            animation: tail-wag 2.5s ease-in-out infinite;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        }
+        
+        /* Cat legs */
+        .cat-leg {
+            position: absolute;
+            width: 4px;
+            height: 12px;
+            background: var(--cat-color, #ff6b35);
+            border-radius: 50%;
+            bottom: 0px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .cat-leg.front-left { left: 18px; }
+        .cat-leg.front-right { left: 25px; }
+        .cat-leg.back-left { left: 12px; }
+        .cat-leg.back-right { left: 19px; }
+        
+        /* Cat eyes */
+        .cat-eye {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #000;
+            border-radius: 50%;
+            top: 8px;
+        }
+        
+        .cat-eye.left { left: 5px; }
+        .cat-eye.right { right: 5px; }
+        
+        /* Cat nose */
+        .cat-nose {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ff1744;
+            border-radius: 50%;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* Cat whiskers */
+        .cat-whiskers {
+            position: absolute;
+            top: 11px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .cat-whiskers::before,
+        .cat-whiskers::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 1px;
+            background: #333;
+            top: 0;
+        }
+        
+        .cat-whiskers::before { left: -15px; }
+        .cat-whiskers::after { right: -15px; }
+        
+        /* Cat animations */
+        @keyframes tail-wag {
+            0%, 100% { transform: rotate(-15deg); }
+            50% { transform: rotate(20deg); }
+        }
+        
+        @keyframes cat-walk {
+            0%, 100% { transform: translateY(0px); }
+            25% { transform: translateY(-3px); }
+            75% { transform: translateY(-1px); }
+        }
+        
+        @keyframes cat-stretch {
+            0%, 100% { transform: scaleX(1); }
+            50% { transform: scaleX(1.3); }
+        }
+        
+        @keyframes cat-sleep {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.6; }
+        }
+        
+        @keyframes cat-purr {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* Cat states */
+        .cat-walking {
+            animation: cat-walk 0.8s ease-in-out infinite;
+        }
+        
+        .cat-stretching {
+            animation: cat-stretch 2s ease-in-out;
+        }
+        
+        .cat-sleeping {
+            animation: cat-sleep 4s ease-in-out infinite;
+        }
+        
+        .cat-purring {
+            animation: cat-purr 1s ease-in-out infinite;
+        }
+        
+        .cat-sitting .cat-body {
+            height: 25px;
+            border-radius: 50% 50% 20% 20%;
+        }
+        
+        .cat-sitting .cat-tail {
+            transform: rotate(60deg);
+            animation: none;
         }
         
         /* Cat facing directions */
@@ -244,10 +417,16 @@
             transform: scaleX(1);
         }
         
+        /* Cat colors */
+        .cat-orange { --cat-color: #ff6b35; }
+        .cat-grey { --cat-color: #8395a7; }
+        .cat-black { --cat-color: #2c2c54; }
+        .cat-white { --cat-color: #f1f2f6; }
+        
         /* Cat shadow */
         .cat-shadow {
             position: fixed;
-            width: 50px;
+            width: 45px;
             height: 12px;
             background: rgba(0,0,0,0.3);
             border-radius: 50%;
@@ -263,35 +442,47 @@
             left: 20px;
             z-index: 10001;
             background: rgba(0,0,0,0.7);
-            padding: 10px;
-            border-radius: 10px;
+            padding: 15px;
+            border-radius: 15px;
             display: flex;
-            gap: 10px;
+            gap: 15px;
         }
         
         .cat-option {
-            width: 32px;
-            height: 32px;
-            background-repeat: no-repeat;
-            background-size: 128px 672px;
-            background-position: 0px -96px; /* Row 3, Col 0 */
-            border: 2px solid transparent;
-            border-radius: 5px;
+            width: 40px;
+            height: 30px;
+            border: 3px solid transparent;
+            border-radius: 8px;
             cursor: pointer;
-            image-rendering: pixelated;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         
         .cat-option:hover {
             border-color: #00d4ff;
+            transform: scale(1.1);
         }
         
         .cat-option.active {
             border-color: #ffd700;
+            box-shadow: 0 0 10px rgba(255,215,0,0.5);
         }
         
-        .cat-option.orange { background-image: url('orange_tabby_000.png'); }
-        .cat-option.grey { background-image: url('grey_tabby_000.png'); }
-        .cat-option.black { background-image: url('black_000.png'); }
+        /* Mini cats in selector */
+        .cat-option::after {
+            content: '🐱';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+        }
+        
+        .cat-option.orange::after { filter: hue-rotate(20deg) brightness(1.2); }
+        .cat-option.grey::after { filter: grayscale(0.8) brightness(0.9); }
+        .cat-option.black::after { filter: brightness(0.3); }
+        .cat-option.white::after { filter: brightness(1.5); }
         
         /* Notification System */
         .notification {
@@ -363,14 +554,30 @@
     </style>
 </head>
 <body>
-    <!-- Desktop Cat System -->
+    <!-- CSS Desktop Cat System -->
     <div class="cat-selector" id="catSelector">
-        <div class="cat-option orange active" data-cat="orange" title="Orange Tabby"></div>
-        <div class="cat-option grey" data-cat="grey" title="Grey Tabby"></div>
+        <div class="cat-option orange active" data-cat="orange" title="Orange Cat"></div>
+        <div class="cat-option grey" data-cat="grey" title="Grey Cat"></div>
         <div class="cat-option black" data-cat="black" title="Black Cat"></div>
+        <div class="cat-option white" data-cat="white" title="White Cat"></div>
     </div>
     <div class="cat-shadow" id="catShadow"></div>
-    <div class="desktop-cat" id="desktopCat"></div>
+    <div class="desktop-cat cat-orange" id="desktopCat">
+        <div class="cat-body"></div>
+        <div class="cat-head">
+            <div class="cat-ear left"></div>
+            <div class="cat-ear right"></div>
+            <div class="cat-eye left"></div>
+            <div class="cat-eye right"></div>
+            <div class="cat-nose"></div>
+            <div class="cat-whiskers"></div>
+        </div>
+        <div class="cat-tail"></div>
+        <div class="cat-leg front-left"></div>
+        <div class="cat-leg front-right"></div>
+        <div class="cat-leg back-left"></div>
+        <div class="cat-leg back-right"></div>
+    </div>
 
     <!-- Header -->
     <header class="header">
@@ -605,8 +812,8 @@
             });
         });
 
-        // Desktop Cat System - Based on the Python DesktopCat
-        class DesktopCat {
+        // CSS Desktop Cat System - Pure CSS, Guaranteed to Work!
+        class CSSDesktopCat {
             constructor() {
                 this.cat = document.getElementById('desktopCat');
                 this.shadow = document.getElementById('catShadow');
@@ -617,42 +824,22 @@
                 this.y = Math.random() * (window.innerHeight - 150);
                 this.targetX = this.x;
                 this.targetY = this.y;
-                this.speed = 0.8;
+                this.speed = 1.0;
                 this.isMoving = false;
                 
-                // Animation system
+                // Behavior system
                 this.currentBehavior = 'idle';
                 this.direction = 'right';
                 this.behaviorTimer = 0;
                 this.behaviorDuration = 0;
-                this.animationFrame = 0;
-                this.lastFrameTime = 0;
-                this.frameDelay = 180; // 0.18 seconds like the Python version
                 
-                // Sprite atlas info (128x672, 32x32 sprites, 4 cols x 21 rows)
-                this.spriteSize = 32;
-                this.atlasWidth = 128;
-                this.atlasHeight = 672;
-                this.scale = 2; // Display at 2x size
-                
-                // Current cat type
-                this.catType = 'orange';
-                this.catImages = {
-                    'orange': 'orange_tabby_000.png',
-                    'grey': 'grey_tabby_000.png',
-                    'black': 'black_000.png'
-                };
-                
-                // Animation sequences (based on Python implementation)
-                this.idleFrames = []; // Will be populated with cycling animation
-                this.currentFrames = [];
-                this.freezeSprite = false;
+                // Current cat color
+                this.catColor = 'orange';
                 
                 this.init();
             }
             
             init() {
-                this.setupIdleAnimation();
                 this.updatePosition();
                 this.chooseBehavior();
                 
@@ -662,71 +849,83 @@
                 
                 // Start loops
                 setInterval(() => this.update(), 50);
-                setInterval(() => this.chooseBehavior(), 5000);
-                setInterval(() => this.animateSprite(), this.frameDelay);
-            }
-            
-            setupIdleAnimation() {
-                // Create cycling animation like Python version (forward then reverse)
-                const baseFrames = [
-                    { x: 0, y: 3 }, // Row 3 (idle animation starts here)
-                    { x: 1, y: 3 },
-                    { x: 2, y: 3 },
-                    { x: 3, y: 3 }
-                ];
-                
-                // Create cycling array (forward + reverse without first frame)
-                this.idleFrames = [...baseFrames];
-                const reverseFrames = [...baseFrames].reverse();
-                reverseFrames.shift(); // Remove first frame to avoid duplication
-                this.idleFrames = [...this.idleFrames, ...reverseFrames];
-                
-                this.currentFrames = this.idleFrames;
-                this.animationFrame = 0;
+                setInterval(() => this.chooseBehavior(), 4000);
             }
             
             setupCatSelector() {
                 const options = this.selector.querySelectorAll('.cat-option');
                 options.forEach(option => {
                     option.addEventListener('click', () => {
-                        const catType = option.dataset.cat;
-                        this.changeCatType(catType);
+                        const catColor = option.dataset.cat;
+                        this.changeCatColor(catColor);
                         
                         // Update active state
                         options.forEach(opt => opt.classList.remove('active'));
                         option.classList.add('active');
                         
-                        showNotification(`🐱 Switched to ${catType} cat!`, 'info');
+                        showNotification(`🐱 Switched to ${catColor} cat!`, 'info');
                     });
                 });
             }
             
-            changeCatType(newType) {
-                this.catType = newType;
-                this.cat.style.backgroundImage = `url('${this.catImages[newType]}')`;
+            changeCatColor(newColor) {
+                // Remove old color class
+                this.cat.classList.remove(`cat-${this.catColor}`);
+                // Add new color class
+                this.catColor = newColor;
+                this.cat.classList.add(`cat-${newColor}`);
             }
             
             chooseBehavior() {
-                // Simple behavior for now - just idle
-                this.setBehavior('idle');
+                const rand = Math.random();
+                let behavior;
+                
+                if (rand < 0.3) behavior = 'walk';
+                else if (rand < 0.5) behavior = 'sit';
+                else if (rand < 0.7) behavior = 'idle';
+                else if (rand < 0.85) behavior = 'stretch';
+                else if (rand < 0.95) behavior = 'purr';
+                else behavior = 'sleep';
+                
+                this.setBehavior(behavior);
             }
             
             setBehavior(behavior) {
+                // Clear all behavior classes
+                this.cat.classList.remove('cat-walking', 'cat-sitting', 'cat-stretching', 'cat-purring', 'cat-sleeping');
+                
                 this.currentBehavior = behavior;
                 this.behaviorTimer = Date.now();
-                this.animationFrame = 0;
                 
                 switch(behavior) {
                     case 'walk':
                         this.setRandomTarget();
-                        this.behaviorDuration = 4000 + Math.random() * 6000;
-                        this.frameDelay = 150; // Faster for walking
+                        this.cat.classList.add('cat-walking');
+                        this.behaviorDuration = 3000 + Math.random() * 4000;
                         break;
-                    default: // idle
+                    case 'sit':
+                        this.cat.classList.add('cat-sitting');
+                        this.behaviorDuration = 4000 + Math.random() * 6000;
+                        this.isMoving = false;
+                        break;
+                    case 'sleep':
+                        this.cat.classList.add('cat-sleeping');
                         this.behaviorDuration = 8000 + Math.random() * 12000;
                         this.isMoving = false;
-                        this.frameDelay = 180; // Match Python version
-                        this.currentFrames = this.idleFrames;
+                        break;
+                    case 'stretch':
+                        this.cat.classList.add('cat-stretching');
+                        this.behaviorDuration = 2500;
+                        this.isMoving = false;
+                        break;
+                    case 'purr':
+                        this.cat.classList.add('cat-purring');
+                        this.behaviorDuration = 2000 + Math.random() * 3000;
+                        this.isMoving = false;
+                        break;
+                    default: // idle
+                        this.behaviorDuration = 3000 + Math.random() * 5000;
+                        this.isMoving = false;
                 }
                 
                 this.updateDirection();
@@ -734,8 +933,8 @@
             
             setRandomTarget() {
                 const margin = 80;
-                this.targetX = margin + Math.random() * (window.innerWidth - margin * 2 - 64);
-                this.targetY = margin + Math.random() * (window.innerHeight - margin * 2 - 64);
+                this.targetX = margin + Math.random() * (window.innerWidth - margin * 2 - 60);
+                this.targetY = margin + Math.random() * (window.innerHeight - margin * 2 - 45);
                 this.isMoving = true;
             }
             
@@ -747,34 +946,12 @@
                 }
             }
             
-            animateSprite() {
-                if (this.freezeSprite) return;
-                
-                if (this.currentFrames.length > 0) {
-                    const frame = this.currentFrames[this.animationFrame];
-                    
-                    // Calculate background position (scaled)
-                    const bgX = -(frame.x * this.spriteSize * this.scale);
-                    const bgY = -(frame.y * this.spriteSize * this.scale);
-                    
-                    this.cat.style.backgroundPosition = `${bgX}px ${bgY}px`;
-                    
-                    // Advance frame
-                    this.animationFrame = (this.animationFrame + 1) % this.currentFrames.length;
-                }
-            }
-            
             update() {
                 const now = Date.now();
                 
                 // Check if current behavior should end
                 if (now - this.behaviorTimer > this.behaviorDuration) {
-                    const rand = Math.random();
-                    if (rand < 0.3) {
-                        this.setBehavior('walk');
-                    } else {
-                        this.setBehavior('idle');
-                    }
+                    this.chooseBehavior();
                     return;
                 }
                 
@@ -793,6 +970,7 @@
                 
                 if (distance < 5) {
                     this.isMoving = false;
+                    this.cat.classList.remove('cat-walking');
                     this.setBehavior('idle');
                     return;
                 }
@@ -814,8 +992,8 @@
             updatePosition() {
                 this.cat.style.left = this.x + 'px';
                 this.cat.style.top = this.y + 'px';
-                this.shadow.style.left = (this.x + 7) + 'px';
-                this.shadow.style.top = (this.y + 55) + 'px';
+                this.shadow.style.left = (this.x + 8) + 'px';
+                this.shadow.style.top = (this.y + 40) + 'px';
             }
             
             onCatClick() {
@@ -824,25 +1002,25 @@
                 saveGameData();
                 updateStats();
                 
-                showNotification('🐱 Purr! Your desktop cat is happy!', 'success');
+                showNotification('🐱 Meow! Your CSS cat is happy!', 'success');
                 
                 // Brief scale animation
                 const originalTransform = this.cat.style.transform;
-                this.cat.style.transform = this.direction === 'left' ? 'scaleX(-1.2) scaleY(1.2)' : 'scale(1.2)';
+                this.cat.style.transform = this.direction === 'left' ? 'scaleX(-1.3) scaleY(1.3)' : 'scale(1.3)';
                 setTimeout(() => {
                     this.cat.style.transform = originalTransform;
-                }, 200);
+                }, 300);
                 
-                // Reset behavior
-                this.setBehavior('idle');
+                // Make cat purr
+                this.setBehavior('purr');
             }
             
             celebrate() {
                 // Cat gets excited when you complete tasks
-                this.setBehavior('walk');
+                this.setBehavior('stretch');
                 setTimeout(() => {
-                    this.setBehavior('idle');
-                }, 3000);
+                    this.setBehavior('walk');
+                }, 1500);
             }
         }
 
@@ -853,10 +1031,10 @@
             loadGameData();
             updateDisplay();
             
-            // Initialize desktop cat
+            // Initialize CSS desktop cat
             setTimeout(() => {
-                desktopCat = new DesktopCat();
-                showNotification('🐱 Your desktop cat companion has arrived! Click the cat icons to change colors!', 'info');
+                desktopCat = new CSSDesktopCat();
+                showNotification('🐱 Your CSS cat companion has arrived! Click the cat icons to change colors!', 'info');
             }, 1000);
         });
 
