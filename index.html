@@ -3,189 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Quest - Level Up Your Watching!</title>
+    <title>Link Quest - Your Digital Adventure Companion! 🐱</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(45deg, #1e3c72, #2a5298, #1e3c72);
+            background-size: 300% 300%;
+            animation: gradient-shift 8s ease infinite;
             min-height: 100vh;
             color: white;
             overflow-x: hidden;
         }
         
-        .game-header {
-            background: rgba(0,0,0,0.3);
-            padding: 20px;
-            text-align: center;
-            border-bottom: 3px solid #ffd700;
-            position: relative;
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
         
-        .level-display {
-            font-size: 2.5em;
+        /* Header Section */
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid #00d4ff;
+        }
+        
+        .title {
+            font-size: 3em;
             font-weight: bold;
-            color: #ffd700;
-            text-shadow: 0 0 20px #ffd700;
-            animation: glow 2s ease-in-out infinite alternate;
+            background: linear-gradient(45deg, #00d4ff, #ff6b9d, #c471ed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            animation: title-glow 3s ease-in-out infinite;
         }
         
-        @keyframes glow {
-            from { text-shadow: 0 0 20px #ffd700; }
-            to { text-shadow: 0 0 30px #ffd700, 0 0 40px #ffd700; }
+        @keyframes title-glow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(0,212,255,0.5)); }
+            50% { filter: drop-shadow(0 0 20px rgba(255,107,157,0.8)); }
         }
         
-        .stats-bar {
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        /* Stats Dashboard */
+        .stats-dashboard {
             display: flex;
-            justify-content: space-around;
-            margin: 15px 0;
-            flex-wrap: wrap;
-        }
-        
-        .stat {
-            text-align: center;
-            background: rgba(255,255,255,0.1);
-            padding: 10px 15px;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-            margin: 5px;
-        }
-        
-        .xp-bar {
-            width: 100%;
-            height: 20px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 10px;
-            margin: 10px 0;
-            overflow: hidden;
-            border: 2px solid #ffd700;
-        }
-        
-        .xp-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #00ff88, #00cc6a);
-            transition: width 0.5s ease;
-            border-radius: 8px;
-        }
-        
-        .quest-zones {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            justify-content: center;
             gap: 20px;
-            padding: 20px;
-            max-width: 1400px;
-            margin: 0 auto;
+            flex-wrap: wrap;
+            margin-top: 20px;
         }
         
-        .quest-zone {
+        .stat-card {
             background: rgba(255,255,255,0.1);
+            padding: 15px 20px;
             border-radius: 15px;
-            padding: 20px;
             backdrop-filter: blur(10px);
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+            min-width: 120px;
+            transition: transform 0.3s ease;
         }
         
-        .quest-zone:hover {
+        .stat-card:hover {
             transform: translateY(-5px);
-            border-color: #ffd700;
-            box-shadow: 0 10px 30px rgba(255,215,0,0.3);
         }
         
-        .zone-header {
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+        
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        .link-section {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .link-section:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+        }
+        
+        .section-header {
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
-            font-size: 1.3em;
+            margin-bottom: 20px;
+            font-size: 1.4em;
             font-weight: bold;
         }
         
-        .zone-icon {
-            font-size: 2em;
-            margin-right: 10px;
+        .section-icon {
+            font-size: 1.8em;
+            margin-right: 15px;
         }
         
-        .video-input {
+        .add-link-form {
             display: flex;
-            margin-bottom: 15px;
             gap: 10px;
+            margin-bottom: 20px;
         }
         
-        .video-input input {
+        .link-input {
             flex: 1;
-            padding: 10px;
+            padding: 12px 15px;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             background: rgba(255,255,255,0.9);
             color: #333;
+            font-size: 1em;
         }
         
-        .add-btn {
-            padding: 10px 15px;
-            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+        .add-button {
+            padding: 12px 20px;
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             color: white;
-            cursor: pointer;
             font-weight: bold;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
         
-        .add-btn:hover {
+        .add-button:hover {
             transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(255,107,107,0.4);
+            box-shadow: 0 5px 15px rgba(0,212,255,0.4);
         }
         
-        .video-list {
-            min-height: 100px;
+        .link-list {
+            min-height: 60px;
         }
         
-        .video-item {
-            background: rgba(255,255,255,0.15);
-            margin: 8px 0;
-            padding: 12px;
-            border-radius: 10px;
+        .link-item {
+            background: rgba(255,255,255,0.1);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             transition: all 0.3s ease;
-            cursor: pointer;
-            border-left: 4px solid transparent;
+            border-left: 4px solid #00d4ff;
         }
         
-        .video-item:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateX(5px);
+        .link-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(10px);
         }
         
-        .priority .video-item { border-left-color: #ff6b6b; }
-        .backlog .video-item { border-left-color: #ffd700; }
-        .completed .video-item { border-left-color: #00ff88; }
-        
-        .video-title {
+        .link-title {
             flex: 1;
             font-weight: 500;
         }
         
-        .video-actions {
+        .link-actions {
             display: flex;
             gap: 8px;
         }
         
         .action-btn {
-            padding: 5px 10px;
+            padding: 8px 12px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 0.8em;
+            font-size: 0.9em;
             font-weight: bold;
             transition: all 0.2s ease;
         }
         
-        .watch-btn {
+        .visit-btn {
             background: #00ff88;
             color: #000;
         }
@@ -199,64 +215,11 @@
             transform: scale(1.1);
         }
         
-        .achievement-popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            background: linear-gradient(45deg, #ffd700, #ffed4e);
-            color: #000;
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            z-index: 1000;
-            transition: all 0.5s ease;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        }
-        
-        .achievement-popup.show {
-            transform: translate(-50%, -50%) scale(1);
-        }
-        
-        .achievement-popup h2 {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-        
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-        }
-        
-        .particle {
-            position: absolute;
-            background: #ffd700;
-            border-radius: 50%;
-            opacity: 0.7;
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-        
-        .quest-counter {
-            font-size: 1.2em;
-            margin-top: 10px;
-            opacity: 0.8;
-        }
-        
         /* CSS Desktop Cat - No images needed! */
         .desktop-cat {
             position: fixed;
-            width: 40px;
-            height: 30px;
+            width: 50px;
+            height: 40px;
             z-index: 9999;
             cursor: pointer;
             transition: transform 0.3s ease;
@@ -269,31 +232,33 @@
         /* Cat body */
         .cat-body {
             position: absolute;
-            width: 25px;
-            height: 15px;
-            background: #ff6b35;
+            width: 30px;
+            height: 18px;
+            background: linear-gradient(45deg, #ff6b35, #ff8c42);
             border-radius: 50%;
-            bottom: 5px;
-            left: 8px;
+            bottom: 8px;
+            left: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         
         /* Cat head */
         .cat-head {
             position: absolute;
-            width: 18px;
-            height: 16px;
-            background: #ff6b35;
+            width: 22px;
+            height: 20px;
+            background: linear-gradient(45deg, #ff6b35, #ff8c42);
             border-radius: 50%;
-            bottom: 12px;
-            left: 20px;
+            bottom: 18px;
+            left: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         
         /* Cat ears */
         .cat-ear {
             position: absolute;
-            width: 6px;
-            height: 8px;
-            background: #ff6b35;
+            width: 8px;
+            height: 10px;
+            background: linear-gradient(45deg, #ff6b35, #ff8c42);
             border-radius: 50% 50% 0 0;
             top: 2px;
         }
@@ -301,72 +266,100 @@
         .cat-ear.left { left: 2px; }
         .cat-ear.right { right: 2px; }
         
+        .cat-ear::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 6px;
+            background: #ff4757;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+        }
+        
         /* Cat tail */
         .cat-tail {
             position: absolute;
-            width: 3px;
-            height: 12px;
-            background: #ff6b35;
+            width: 4px;
+            height: 16px;
+            background: linear-gradient(to bottom, #ff6b35, #ff8c42);
             border-radius: 50%;
-            bottom: 8px;
-            left: 2px;
+            bottom: 12px;
+            left: 3px;
             transform-origin: bottom;
-            animation: tail-wag 2s ease-in-out infinite;
+            animation: tail-wag 2.5s ease-in-out infinite;
         }
         
         /* Cat legs */
         .cat-leg {
             position: absolute;
-            width: 3px;
-            height: 8px;
+            width: 4px;
+            height: 10px;
             background: #ff6b35;
             border-radius: 50%;
             bottom: 0px;
         }
         
-        .cat-leg.front-left { left: 12px; }
-        .cat-leg.front-right { left: 18px; }
-        .cat-leg.back-left { left: 8px; }
-        .cat-leg.back-right { left: 14px; }
+        .cat-leg.front-left { left: 15px; }
+        .cat-leg.front-right { left: 22px; }
+        .cat-leg.back-left { left: 10px; }
+        .cat-leg.back-right { left: 17px; }
         
         /* Cat eyes */
         .cat-eye {
             position: absolute;
-            width: 2px;
-            height: 2px;
+            width: 3px;
+            height: 3px;
             background: #000;
             border-radius: 50%;
-            top: 6px;
+            top: 8px;
         }
         
-        .cat-eye.left { left: 3px; }
-        .cat-eye.right { right: 3px; }
+        .cat-eye.left { left: 4px; }
+        .cat-eye.right { right: 4px; }
+        
+        /* Cat nose */
+        .cat-nose {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ff1744;
+            border-radius: 50%;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
         
         /* Cat animations */
         @keyframes tail-wag {
-            0%, 100% { transform: rotate(-10deg); }
-            50% { transform: rotate(15deg); }
+            0%, 100% { transform: rotate(-15deg); }
+            50% { transform: rotate(20deg); }
         }
         
         @keyframes cat-walk {
             0%, 100% { transform: translateY(0px); }
-            25% { transform: translateY(-2px); }
+            25% { transform: translateY(-3px); }
             75% { transform: translateY(-1px); }
         }
         
         @keyframes cat-stretch {
             0%, 100% { transform: scaleX(1); }
-            50% { transform: scaleX(1.3); }
+            50% { transform: scaleX(1.4); }
         }
         
         @keyframes cat-sleep {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 0.6; }
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 0.5; }
+        }
+        
+        @keyframes cat-purr {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         
         /* Cat states */
         .cat-walking {
-            animation: cat-walk 0.6s ease-in-out infinite;
+            animation: cat-walk 0.8s ease-in-out infinite;
         }
         
         .cat-stretching {
@@ -374,16 +367,20 @@
         }
         
         .cat-sleeping {
-            animation: cat-sleep 3s ease-in-out infinite;
+            animation: cat-sleep 4s ease-in-out infinite;
+        }
+        
+        .cat-purring {
+            animation: cat-purr 1s ease-in-out infinite;
         }
         
         .cat-sitting .cat-body {
-            height: 18px;
-            border-radius: 50% 50% 0 0;
+            height: 22px;
+            border-radius: 50% 50% 20% 20%;
         }
         
         .cat-sitting .cat-tail {
-            transform: rotate(45deg);
+            transform: rotate(60deg);
             animation: none;
         }
         
@@ -395,40 +392,85 @@
         /* Cat shadow */
         .cat-shadow {
             position: fixed;
-            width: 30px;
-            height: 8px;
-            background: rgba(0,0,0,0.2);
+            width: 35px;
+            height: 10px;
+            background: rgba(0,0,0,0.3);
             border-radius: 50%;
             z-index: 9998;
             pointer-events: none;
-            filter: blur(2px);
+            filter: blur(3px);
         }
-
+        
+        /* Notification System */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            z-index: 10000;
+            transform: translateX(400px);
+            transition: transform 0.5s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .quest-zones {
-                grid-template-columns: 1fr;
-                padding: 10px;
-            }
-            
-            .video-input {
-                flex-direction: column;
-            }
-            
-            .stats-bar {
+            .stats-dashboard {
                 flex-direction: column;
                 align-items: center;
             }
             
-            /* Hide cat on mobile for better performance */
-            .desktop-cat, .cat-shadow {
-                display: none;
+            .add-link-form {
+                flex-direction: column;
             }
+            
+            .desktop-cat, .cat-shadow {
+                display: none; /* Hide cat on mobile */
+            }
+            
+            .title {
+                font-size: 2em;
+            }
+        }
+        
+        /* Fun hover effects */
+        .link-section {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .link-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+        
+        .link-section:hover::before {
+            animation: shine 1.5s ease-in-out;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); opacity: 0; }
         }
     </style>
 </head>
 <body>
-    <div class="particles" id="particles"></div>
-    
     <!-- CSS Desktop Cat -->
     <div class="cat-shadow" id="catShadow"></div>
     <div class="desktop-cat" id="desktopCat">
@@ -438,6 +480,7 @@
             <div class="cat-ear right"></div>
             <div class="cat-eye left"></div>
             <div class="cat-eye right"></div>
+            <div class="cat-nose"></div>
         </div>
         <div class="cat-tail"></div>
         <div class="cat-leg front-left"></div>
@@ -445,279 +488,204 @@
         <div class="cat-leg back-left"></div>
         <div class="cat-leg back-right"></div>
     </div>
-    
-    <div class="game-header">
-        <div class="level-display">LEVEL <span id="playerLevel">1</span></div>
-        <div class="stats-bar">
-            <div class="stat">
-                <div>🏆 XP</div>
-                <div id="totalXP">0</div>
-            </div>
-            <div class="stat">
-                <div>⚡ Streak</div>
-                <div id="watchStreak">0</div>
-            </div>
-            <div class="stat">
-                <div>🎯 Total Watched</div>
-                <div id="totalWatched">0</div>
-            </div>
-            <div class="stat">
-                <div>🎮 Achievement Score</div>
-                <div id="achievementScore">0</div>
-            </div>
-        </div>
-        <div class="xp-bar">
-            <div class="xp-fill" id="xpFill"></div>
-        </div>
-        <div class="quest-counter">XP to next level: <span id="xpToNext">100</span></div>
-    </div>
 
-    <div class="quest-zones">
-        <div class="quest-zone priority">
-            <div class="zone-header">
-                <span class="zone-icon">🔥</span>
-                <span>PRIORITY QUESTS</span>
+    <!-- Header -->
+    <header class="header">
+        <h1 class="title">🔗 Link Quest 🐱</h1>
+        <p class="subtitle">Your gamified link keeper with a furry companion!</p>
+        
+        <div class="stats-dashboard">
+            <div class="stat-card">
+                <div class="stat-value" id="totalLinks">0</div>
+                <div class="stat-label">📚 Total Links</div>
             </div>
-            <div class="video-input">
-                <input type="text" placeholder="Add urgent video quest..." id="priorityInput">
-                <button class="add-btn" onclick="addVideo('priority')">Add Quest</button>
+            <div class="stat-card">
+                <div class="stat-value" id="visitedLinks">0</div>
+                <div class="stat-label">✅ Visited</div>
             </div>
-            <div class="video-list" id="priorityList"></div>
+            <div class="stat-card">
+                <div class="stat-value" id="catPets">0</div>
+                <div class="stat-label">🐾 Cat Pets</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="streakDays">0</div>
+                <div class="stat-label">🔥 Day Streak</div>
+            </div>
         </div>
+    </header>
 
-        <div class="quest-zone backlog">
-            <div class="zone-header">
-                <span class="zone-icon">📚</span>
-                <span>BACKLOG ADVENTURES</span>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Priority Links -->
+        <section class="link-section" style="border-left: 5px solid #ff6b9d;">
+            <div class="section-header">
+                <span class="section-icon">🚀</span>
+                <span>Priority Links</span>
             </div>
-            <div class="video-input">
-                <input type="text" placeholder="Add to backlog..." id="backlogInput">
-                <button class="add-btn" onclick="addVideo('backlog')">Add Quest</button>
+            <div class="add-link-form">
+                <input type="text" class="link-input" id="priorityInput" placeholder="Add an important link to visit soon...">
+                <button class="add-button" onclick="addLink('priority')">Add Link</button>
             </div>
-            <div class="video-list" id="backlogList"></div>
-        </div>
+            <div class="link-list" id="priorityList"></div>
+        </section>
 
-        <div class="quest-zone completed">
-            <div class="zone-header">
-                <span class="zone-icon">🏆</span>
-                <span>COMPLETED QUESTS</span>
+        <!-- Read Later -->
+        <section class="link-section" style="border-left: 5px solid #00d4ff;">
+            <div class="section-header">
+                <span class="section-icon">📖</span>
+                <span>Read Later</span>
             </div>
-            <div class="video-list" id="completedList"></div>
-        </div>
-    </div>
+            <div class="add-link-form">
+                <input type="text" class="link-input" id="laterInput" placeholder="Save interesting articles and content...">
+                <button class="add-button" onclick="addLink('later')">Add Link</button>
+            </div>
+            <div class="link-list" id="laterList"></div>
+        </section>
 
-    <div class="achievement-popup" id="achievementPopup">
-        <h2>🎉 ACHIEVEMENT UNLOCKED! 🎉</h2>
-        <p id="achievementText"></p>
-    </div>
+        <!-- Learning Resources -->
+        <section class="link-section" style="border-left: 5px solid #c471ed;">
+            <div class="section-header">
+                <span class="section-icon">🎓</span>
+                <span>Learning Resources</span>
+            </div>
+            <div class="add-link-form">
+                <input type="text" class="link-input" id="learningInput" placeholder="Educational content and tutorials...">
+                <button class="add-button" onclick="addLink('learning')">Add Link</button>
+            </div>
+            <div class="link-list" id="learningList"></div>
+        </section>
+
+        <!-- Completed -->
+        <section class="link-section" style="border-left: 5px solid #00ff88;">
+            <div class="section-header">
+                <span class="section-icon">🏆</span>
+                <span>Completed Adventures</span>
+            </div>
+            <div class="link-list" id="completedList"></div>
+        </section>
+    </main>
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
 
     <script>
+        // Game Data
         let gameData = {
-            level: 1,
-            xp: 0,
-            streak: 0,
-            totalWatched: 0,
-            achievementScore: 0,
-            videos: {
+            links: {
                 priority: [],
-                backlog: [],
+                later: [],
+                learning: [],
                 completed: []
             },
-            lastWatchDate: null
+            stats: {
+                totalLinks: 0,
+                visitedLinks: 0,
+                catPets: 0,
+                streakDays: 0
+            }
         };
 
-        const achievements = [
-            { id: 'first_watch', name: 'First Steps', desc: 'Complete your first video!', xp: 50, condition: () => gameData.totalWatched >= 1 },
-            { id: 'streak_3', name: 'Getting Warmed Up', desc: '3 day watching streak!', xp: 100, condition: () => gameData.streak >= 3 },
-            { id: 'watch_10', name: 'Video Veteran', desc: 'Watch 10 videos total!', xp: 200, condition: () => gameData.totalWatched >= 10 },
-            { id: 'streak_7', name: 'Weekly Warrior', desc: '7 day watching streak!', xp: 300, condition: () => gameData.streak >= 7 },
-            { id: 'priority_clear', name: 'Priority Master', desc: 'Clear all priority quests!', xp: 150, condition: () => gameData.videos.priority.length === 0 && gameData.totalWatched > 0 },
-        ];
+        // Load data from localStorage
+        function loadGameData() {
+            const saved = localStorage.getItem('linkQuestData');
+            if (saved) {
+                gameData = { ...gameData, ...JSON.parse(saved) };
+            }
+            updateStats();
+        }
 
-        let unlockedAchievements = [];
+        // Save data to localStorage
+        function saveGameData() {
+            localStorage.setItem('linkQuestData', JSON.stringify(gameData));
+        }
 
-        function addVideo(category) {
+        // Add new link
+        function addLink(category) {
             const input = document.getElementById(`${category}Input`);
             if (!input.value.trim()) return;
 
-            const video = {
+            const link = {
                 id: Date.now(),
                 title: input.value.trim(),
-                dateAdded: new Date(),
+                url: input.value.trim(),
+                dateAdded: new Date().toISOString(),
                 category: category
             };
 
-            gameData.videos[category].push(video);
+            gameData.links[category].push(link);
+            gameData.stats.totalLinks++;
             input.value = '';
             
-            // Add XP for adding videos
-            gainXP(10);
+            saveGameData();
             updateDisplay();
-            createParticles();
+            showNotification(`📝 Link added to ${category}!`, 'success');
+            
+            // Make cat react
+            if (cssDesktopCat && Math.random() < 0.5) {
+                cssDesktopCat.setBehavior('stretch');
+            }
         }
 
-        function watchVideo(id, currentCategory) {
-            const video = gameData.videos[currentCategory].find(v => v.id === id);
-            if (!video) return;
+        // Visit link
+        function visitLink(id, currentCategory) {
+            const link = gameData.links[currentCategory].find(l => l.id === id);
+            if (!link) return;
 
-            // Remove from current category
-            gameData.videos[currentCategory] = gameData.videos[currentCategory].filter(v => v.id !== id);
+            // Open the link
+            window.open(link.url, '_blank');
+
+            // Move to completed
+            gameData.links[currentCategory] = gameData.links[currentCategory].filter(l => l.id !== id);
+            link.category = 'completed';
+            link.completedDate = new Date().toISOString();
+            gameData.links.completed.push(link);
             
-            // Add to completed
-            video.category = 'completed';
-            video.completedDate = new Date();
-            gameData.videos.completed.push(video);
-
-            // Calculate XP based on category
-            let xpGain = 50;
-            if (currentCategory === 'priority') xpGain = 100;
-            if (currentCategory === 'backlog') xpGain = 75;
-
-            // Update streak
-            const today = new Date().toDateString();
-            const yesterday = new Date(Date.now() - 86400000).toDateString();
+            gameData.stats.visitedLinks++;
             
-            if (gameData.lastWatchDate === yesterday || gameData.lastWatchDate === today) {
-                if (gameData.lastWatchDate !== today) {
-                    gameData.streak++;
-                    xpGain += gameData.streak * 10; // Bonus XP for streaks
-                }
-            } else if (gameData.lastWatchDate !== today) {
-                gameData.streak = 1;
-            }
-            
-            gameData.lastWatchDate = today;
-            gameData.totalWatched++;
-
-            gainXP(xpGain);
-            checkAchievements();
+            saveGameData();
             updateDisplay();
-            createCelebration();
+            showNotification(`🎉 Link visited! Great job!`, 'success');
+            
+            // Make cat celebrate
+            if (cssDesktopCat) {
+                cssDesktopCat.setBehavior('purr');
+            }
         }
 
-        function deleteVideo(id, category) {
-            gameData.videos[category] = gameData.videos[category].filter(v => v.id !== id);
+        // Delete link
+        function deleteLink(id, category) {
+            gameData.links[category] = gameData.links[category].filter(l => l.id !== id);
+            if (category !== 'completed') {
+                gameData.stats.totalLinks--;
+            }
+            saveGameData();
             updateDisplay();
+            showNotification(`🗑️ Link removed`, 'info');
         }
 
-        function gainXP(amount) {
-            gameData.xp += amount;
-            
-            // Level up check
-            const xpNeeded = gameData.level * 100;
-            if (gameData.xp >= xpNeeded) {
-                gameData.level++;
-                gameData.xp -= xpNeeded;
-                showAchievement(`LEVEL UP! You're now Level ${gameData.level}!`, '🚀');
-                createLevelUpEffect();
-            }
-        }
-
-        function checkAchievements() {
-            achievements.forEach(achievement => {
-                if (!unlockedAchievements.includes(achievement.id) && achievement.condition()) {
-                    unlockedAchievements.push(achievement.id);
-                    gameData.achievementScore += achievement.xp;
-                    gainXP(achievement.xp);
-                    showAchievement(achievement.name + ': ' + achievement.desc, '🏆');
-                }
-            });
-        }
-
-        function showAchievement(text, icon = '🎉') {
-            const popup = document.getElementById('achievementPopup');
-            const textElement = document.getElementById('achievementText');
-            textElement.innerHTML = `${icon} ${text}`;
-            
-            popup.classList.add('show');
-            setTimeout(() => {
-                popup.classList.remove('show');
-            }, 3000);
-        }
-
-        function createParticles() {
-            const container = document.getElementById('particles');
-            for (let i = 0; i < 5; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.width = particle.style.height = (Math.random() * 10 + 5) + 'px';
-                particle.style.animationDelay = Math.random() * 2 + 's';
-                container.appendChild(particle);
-                
-                setTimeout(() => particle.remove(), 3000);
-            }
-        }
-
-        function createCelebration() {
-            const colors = ['#ffd700', '#ff6b6b', '#00ff88', '#74b9ff'];
-            for (let i = 0; i < 15; i++) {
-                const particle = document.createElement('div');
-                particle.style.position = 'fixed';
-                particle.style.left = '50%';
-                particle.style.top = '50%';
-                particle.style.width = particle.style.height = '10px';
-                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-                particle.style.borderRadius = '50%';
-                particle.style.pointerEvents = 'none';
-                particle.style.zIndex = '999';
-                
-                const angle = (i / 15) * Math.PI * 2;
-                const velocity = 200 + Math.random() * 100;
-                
-                document.body.appendChild(particle);
-                
-                particle.animate([
-                    { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
-                    { 
-                        transform: `translate(${Math.cos(angle) * velocity - 50}px, ${Math.sin(angle) * velocity - 50}px) scale(0)`,
-                        opacity: 0 
-                    }
-                ], {
-                    duration: 1000,
-                    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-                }).onfinish = () => particle.remove();
-            }
-        }
-
-        function createLevelUpEffect() {
-            document.body.style.animation = 'none';
-            setTimeout(() => {
-                document.body.style.animation = 'flash 0.5s ease-in-out';
-            }, 10);
-        }
-
+        // Update display
         function updateDisplay() {
-            document.getElementById('playerLevel').textContent = gameData.level;
-            document.getElementById('totalXP').textContent = gameData.xp;
-            document.getElementById('watchStreak').textContent = gameData.streak;
-            document.getElementById('totalWatched').textContent = gameData.totalWatched;
-            document.getElementById('achievementScore').textContent = gameData.achievementScore;
+            updateStats();
             
-            const xpNeeded = gameData.level * 100;
-            const xpProgress = (gameData.xp / xpNeeded) * 100;
-            document.getElementById('xpFill').style.width = xpProgress + '%';
-            document.getElementById('xpToNext').textContent = xpNeeded - gameData.xp;
-
-            // Update video lists
-            ['priority', 'backlog', 'completed'].forEach(category => {
+            // Update all link lists
+            ['priority', 'later', 'learning', 'completed'].forEach(category => {
                 const list = document.getElementById(`${category}List`);
                 list.innerHTML = '';
                 
-                gameData.videos[category].forEach(video => {
+                gameData.links[category].forEach(link => {
                     const item = document.createElement('div');
-                    item.className = 'video-item';
+                    item.className = 'link-item';
                     
                     const isCompleted = category === 'completed';
-                    const watchButtonText = isCompleted ? '🎉' : '✅';
-                    const watchButtonAction = isCompleted ? '' : `onclick="watchVideo(${video.id}, '${category}')"`;
+                    const visitButton = isCompleted ? 
+                        `<button class="action-btn visit-btn" onclick="window.open('${link.url}', '_blank')">🔗</button>` :
+                        `<button class="action-btn visit-btn" onclick="visitLink(${link.id}, '${category}')">✅</button>`;
                     
                     item.innerHTML = `
-                        <div class="video-title">${video.title}</div>
-                        <div class="video-actions">
-                            ${!isCompleted ? `<button class="action-btn watch-btn" ${watchButtonAction}>${watchButtonText}</button>` : ''}
-                            <button class="action-btn delete-btn" onclick="deleteVideo(${video.id}, '${category}')">🗑️</button>
+                        <div class="link-title">${link.title}</div>
+                        <div class="link-actions">
+                            ${visitButton}
+                            <button class="action-btn delete-btn" onclick="deleteLink(${link.id}, '${category}')">🗑️</button>
                         </div>
                     `;
                     
@@ -726,38 +694,35 @@
             });
         }
 
-        // Add some CSS for flash effect
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes flash {
-                0% { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-                50% { background: linear-gradient(135deg, #ffd700 0%, #ff6b6b 100%); }
-                100% { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-            }
-        `;
-        document.head.appendChild(style);
+        // Update stats display
+        function updateStats() {
+            document.getElementById('totalLinks').textContent = gameData.stats.totalLinks;
+            document.getElementById('visitedLinks').textContent = gameData.stats.visitedLinks;
+            document.getElementById('catPets').textContent = gameData.stats.catPets;
+            document.getElementById('streakDays').textContent = gameData.stats.streakDays;
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
 
         // Handle Enter key for inputs
-        ['priority', 'backlog'].forEach(category => {
+        ['priority', 'later', 'learning'].forEach(category => {
             document.getElementById(`${category}Input`).addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
-                    addVideo(category);
+                    addLink(category);
                 }
             });
         });
 
-        // Initialize display
-        updateDisplay();
-        
-        // Welcome message
-        setTimeout(() => {
-            showAchievement('Welcome to Video Quest! Start adding videos to begin your journey!', '🎮');
-        }, 1000);
-
-        // Create some ambient particles
-        setInterval(createParticles, 2000);
-
-        // CSS Desktop Cat System - Completely Self-Contained!
+        // CSS Desktop Cat System
         class CSSDesktopCat {
             constructor() {
                 this.cat = document.getElementById('desktopCat');
@@ -766,14 +731,14 @@
                 this.y = Math.random() * (window.innerHeight - 100);
                 this.targetX = this.x;
                 this.targetY = this.y;
-                this.speed = 0.8;
+                this.speed = 1.2;
                 this.isMoving = false;
                 this.currentBehavior = 'idle';
                 this.direction = 'right';
                 this.behaviorTimer = 0;
                 this.behaviorDuration = 0;
                 
-                this.behaviors = ['idle', 'walk', 'sit', 'sleep', 'stretch'];
+                this.behaviors = ['idle', 'walk', 'sit', 'sleep', 'stretch', 'purr'];
                 
                 this.init();
             }
@@ -787,7 +752,7 @@
                 
                 // Start the main loop
                 setInterval(() => this.update(), 50);
-                setInterval(() => this.chooseBehavior(), 4000);
+                setInterval(() => this.chooseBehavior(), 5000);
             }
             
             chooseBehavior() {
@@ -795,10 +760,11 @@
                 const rand = Math.random();
                 let behavior;
                 
-                if (rand < 0.4) behavior = 'walk';
-                else if (rand < 0.6) behavior = 'sit';
-                else if (rand < 0.75) behavior = 'idle';
-                else if (rand < 0.9) behavior = 'stretch';
+                if (rand < 0.35) behavior = 'walk';
+                else if (rand < 0.55) behavior = 'sit';
+                else if (rand < 0.70) behavior = 'idle';
+                else if (rand < 0.85) behavior = 'purr';
+                else if (rand < 0.95) behavior = 'stretch';
                 else behavior = 'sleep';
                 
                 this.setBehavior(behavior);
@@ -815,25 +781,30 @@
                     case 'walk':
                         this.setRandomTarget();
                         this.cat.classList.add('cat-walking');
-                        this.behaviorDuration = 3000 + Math.random() * 4000;
+                        this.behaviorDuration = 3000 + Math.random() * 5000;
                         break;
                     case 'sit':
                         this.cat.classList.add('cat-sitting');
-                        this.behaviorDuration = 4000 + Math.random() * 6000;
+                        this.behaviorDuration = 4000 + Math.random() * 8000;
                         this.isMoving = false;
                         break;
                     case 'sleep':
                         this.cat.classList.add('cat-sleeping');
-                        this.behaviorDuration = 8000 + Math.random() * 12000;
+                        this.behaviorDuration = 10000 + Math.random() * 15000;
                         this.isMoving = false;
                         break;
                     case 'stretch':
                         this.cat.classList.add('cat-stretching');
-                        this.behaviorDuration = 2500;
+                        this.behaviorDuration = 3000;
+                        this.isMoving = false;
+                        break;
+                    case 'purr':
+                        this.cat.classList.add('cat-purring');
+                        this.behaviorDuration = 2000 + Math.random() * 3000;
                         this.isMoving = false;
                         break;
                     default: // idle
-                        this.behaviorDuration = 2000 + Math.random() * 4000;
+                        this.behaviorDuration = 3000 + Math.random() * 5000;
                         this.isMoving = false;
                 }
                 
@@ -841,9 +812,9 @@
             }
             
             setRandomTarget() {
-                const margin = 60;
-                this.targetX = margin + Math.random() * (window.innerWidth - margin * 2 - 40);
-                this.targetY = margin + Math.random() * (window.innerHeight - margin * 2 - 30);
+                const margin = 80;
+                this.targetX = margin + Math.random() * (window.innerWidth - margin * 2 - 50);
+                this.targetY = margin + Math.random() * (window.innerHeight - margin * 2 - 40);
                 this.isMoving = true;
             }
             
@@ -877,7 +848,7 @@
                 const dy = this.targetY - this.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
                 
-                if (distance < 3) {
+                if (distance < 5) {
                     this.isMoving = false;
                     this.cat.classList.remove('cat-walking');
                     return;
@@ -900,58 +871,57 @@
             updatePosition() {
                 this.cat.style.left = this.x + 'px';
                 this.cat.style.top = this.y + 'px';
-                this.shadow.style.left = (this.x + 5) + 'px';
-                this.shadow.style.top = (this.y + 25) + 'px';
+                this.shadow.style.left = (this.x + 8) + 'px';
+                this.shadow.style.top = (this.y + 35) + 'px';
             }
             
             onCatClick() {
-                // Cat reacts to clicks with fun behaviors
-                const reactions = ['stretch', 'sit'];
+                // Cat reacts to clicks
+                const reactions = ['stretch', 'purr', 'sit'];
                 const reaction = reactions[Math.floor(Math.random() * reactions.length)];
                 this.setBehavior(reaction);
                 
-                // Give player XP and show achievement
-                gainXP(5);
-                showAchievement('🐱 Meow! +5 XP', '🐾');
-                createParticles();
+                // Update stats
+                gameData.stats.catPets++;
+                saveGameData();
+                updateStats();
+                
+                showNotification('🐱 Meow! The cat loves attention!', 'success');
                 
                 // Make cat briefly bigger when clicked
-                this.cat.style.transform = 'scale(1.2)';
+                this.cat.style.transform = 'scale(1.3)';
                 setTimeout(() => {
                     this.cat.style.transform = this.direction === 'left' ? 'scaleX(-1)' : 'scaleX(1)';
-                }, 200);
+                }, 300);
             }
             
-            // Method to make cat react to achievements
-            reactToAchievement() {
-                // Cat gets excited and stretches
+            // Method to make cat celebrate
+            celebrate() {
                 this.setBehavior('stretch');
-                
-                // After stretching, move towards achievement popup area
                 setTimeout(() => {
-                    this.targetX = window.innerWidth / 2 - 20;
-                    this.targetY = window.innerHeight / 2 + 150;
-                    this.setBehavior('walk');
+                    this.setBehavior('purr');
                 }, 1000);
             }
         }
-        
-        // Initialize the CSS cat
+
+        // Initialize everything
         let cssDesktopCat;
+        
         window.addEventListener('load', () => {
+            loadGameData();
+            updateDisplay();
+            
+            // Initialize cat
             setTimeout(() => {
                 cssDesktopCat = new CSSDesktopCat();
-            }, 500);
+                showNotification('🐱 Your cat companion has arrived!', 'info');
+            }, 1000);
         });
-        
-        // Make cat react to achievements
-        const originalShowAchievement = showAchievement;
-        showAchievement = function(text, icon = '🎉') {
-            originalShowAchievement(text, icon);
-            if (cssDesktopCat && Math.random() < 0.6) { // 60% chance cat reacts
-                setTimeout(() => cssDesktopCat.reactToAchievement(), 800);
-            }
-        };
+
+        // Welcome message
+        setTimeout(() => {
+            showNotification('🎮 Welcome to Link Quest! Add some links and pet your cat!', 'info');
+        }, 2000);
     </script>
 </body>
 </html>
