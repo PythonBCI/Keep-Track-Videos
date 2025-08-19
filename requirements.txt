@@ -1,0 +1,11 @@
+# Desktop Cat - Video Quest Game
+# No external dependencies required - uses only Python standard library
+# Python 3.6+ required for f-strings and other modern features
+
+# The application uses only built-in Python modules:
+# - tkinter (GUI framework)
+# - json (data serialization)
+# - os (file operations)
+# - datetime (date handling)
+# - threading (background tasks)
+# - time (timestamps)
