@@ -215,190 +215,79 @@
             transform: scale(1.1);
         }
         
-        /* CSS Desktop Cat - No images needed! */
+        /* Sprite Desktop Cat */
         .desktop-cat {
             position: fixed;
-            width: 50px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
+            background-image: url('cat_sprite_sheet.png');
+            background-repeat: no-repeat;
             z-index: 9999;
             cursor: pointer;
             transition: transform 0.3s ease;
+            image-rendering: pixelated; /* Keep pixel art crisp */
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
         }
         
         .desktop-cat:hover {
-            transform: scale(1.1);
+            transform: scale(1.2);
         }
         
-        /* Cat body */
-        .cat-body {
-            position: absolute;
-            width: 30px;
-            height: 18px;
-            background: linear-gradient(45deg, #ff6b35, #ff8c42);
-            border-radius: 50%;
-            bottom: 8px;
-            left: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
+        /* Cat sprite animations - assuming horizontal sprite sheet */
+        /* Idle animations (first few frames) */
+        .cat-idle-1 { background-position: 0px 0px; }
+        .cat-idle-2 { background-position: -32px 0px; }
+        .cat-idle-3 { background-position: -64px 0px; }
+        .cat-idle-4 { background-position: -96px 0px; }
         
-        /* Cat head */
-        .cat-head {
-            position: absolute;
-            width: 22px;
-            height: 20px;
-            background: linear-gradient(45deg, #ff6b35, #ff8c42);
-            border-radius: 50%;
-            bottom: 18px;
-            left: 25px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
+        /* Walking animations */
+        .cat-walk-1 { background-position: -128px 0px; }
+        .cat-walk-2 { background-position: -160px 0px; }
+        .cat-walk-3 { background-position: -192px 0px; }
+        .cat-walk-4 { background-position: -224px 0px; }
         
-        /* Cat ears */
-        .cat-ear {
-            position: absolute;
-            width: 8px;
-            height: 10px;
-            background: linear-gradient(45deg, #ff6b35, #ff8c42);
-            border-radius: 50% 50% 0 0;
-            top: 2px;
-        }
+        /* Sitting animation */
+        .cat-sit-1 { background-position: -256px 0px; }
+        .cat-sit-2 { background-position: -288px 0px; }
         
-        .cat-ear.left { left: 2px; }
-        .cat-ear.right { right: 2px; }
+        /* Sleeping animation */
+        .cat-sleep-1 { background-position: -320px 0px; }
+        .cat-sleep-2 { background-position: -352px 0px; }
         
-        .cat-ear::after {
-            content: '';
-            position: absolute;
-            width: 4px;
-            height: 6px;
-            background: #ff4757;
-            border-radius: 50%;
-            top: 2px;
-            left: 2px;
-        }
+        /* Stretching animation */
+        .cat-stretch-1 { background-position: -384px 0px; }
+        .cat-stretch-2 { background-position: -416px 0px; }
         
-        /* Cat tail */
-        .cat-tail {
-            position: absolute;
-            width: 4px;
-            height: 16px;
-            background: linear-gradient(to bottom, #ff6b35, #ff8c42);
-            border-radius: 50%;
-            bottom: 12px;
-            left: 3px;
-            transform-origin: bottom;
-            animation: tail-wag 2.5s ease-in-out infinite;
-        }
-        
-        /* Cat legs */
-        .cat-leg {
-            position: absolute;
-            width: 4px;
-            height: 10px;
-            background: #ff6b35;
-            border-radius: 50%;
-            bottom: 0px;
-        }
-        
-        .cat-leg.front-left { left: 15px; }
-        .cat-leg.front-right { left: 22px; }
-        .cat-leg.back-left { left: 10px; }
-        .cat-leg.back-right { left: 17px; }
-        
-        /* Cat eyes */
-        .cat-eye {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: #000;
-            border-radius: 50%;
-            top: 8px;
-        }
-        
-        .cat-eye.left { left: 4px; }
-        .cat-eye.right { right: 4px; }
-        
-        /* Cat nose */
-        .cat-nose {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: #ff1744;
-            border-radius: 50%;
-            top: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        /* Cat animations */
-        @keyframes tail-wag {
-            0%, 100% { transform: rotate(-15deg); }
-            50% { transform: rotate(20deg); }
-        }
-        
-        @keyframes cat-walk {
-            0%, 100% { transform: translateY(0px); }
-            25% { transform: translateY(-3px); }
-            75% { transform: translateY(-1px); }
-        }
-        
-        @keyframes cat-stretch {
-            0%, 100% { transform: scaleX(1); }
-            50% { transform: scaleX(1.4); }
-        }
-        
-        @keyframes cat-sleep {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 0.5; }
-        }
-        
-        @keyframes cat-purr {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        /* Cat states */
-        .cat-walking {
-            animation: cat-walk 0.8s ease-in-out infinite;
-        }
-        
-        .cat-stretching {
-            animation: cat-stretch 2s ease-in-out;
-        }
-        
-        .cat-sleeping {
-            animation: cat-sleep 4s ease-in-out infinite;
-        }
-        
-        .cat-purring {
-            animation: cat-purr 1s ease-in-out infinite;
-        }
-        
-        .cat-sitting .cat-body {
-            height: 22px;
-            border-radius: 50% 50% 20% 20%;
-        }
-        
-        .cat-sitting .cat-tail {
-            transform: rotate(60deg);
-            animation: none;
-        }
+        /* If sprite sheet has multiple rows, we can use different y positions */
+        /* Second row examples: */
+        .cat-special-1 { background-position: 0px -32px; }
+        .cat-special-2 { background-position: -32px -32px; }
         
         /* Cat facing directions */
         .cat-face-left {
             transform: scaleX(-1);
         }
         
+        .cat-face-right {
+            transform: scaleX(1);
+        }
+        
         /* Cat shadow */
         .cat-shadow {
             position: fixed;
-            width: 35px;
-            height: 10px;
+            width: 28px;
+            height: 8px;
             background: rgba(0,0,0,0.3);
             border-radius: 50%;
             z-index: 9998;
             pointer-events: none;
-            filter: blur(3px);
+            filter: blur(2px);
+        }
+        
+        /* Smooth animation transitions */
+        .desktop-cat {
+            transition: background-position 0.1s ease;
         }
         
         /* Notification System */
@@ -471,23 +360,9 @@
     </style>
 </head>
 <body>
-    <!-- CSS Desktop Cat -->
+    <!-- Sprite Desktop Cat -->
     <div class="cat-shadow" id="catShadow"></div>
-    <div class="desktop-cat" id="desktopCat">
-        <div class="cat-body"></div>
-        <div class="cat-head">
-            <div class="cat-ear left"></div>
-            <div class="cat-ear right"></div>
-            <div class="cat-eye left"></div>
-            <div class="cat-eye right"></div>
-            <div class="cat-nose"></div>
-        </div>
-        <div class="cat-tail"></div>
-        <div class="cat-leg front-left"></div>
-        <div class="cat-leg front-right"></div>
-        <div class="cat-leg back-left"></div>
-        <div class="cat-leg back-right"></div>
-    </div>
+    <div class="desktop-cat cat-idle-1" id="desktopCat"></div>
 
     <!-- Header -->
     <header class="header">
@@ -621,8 +496,8 @@
             showNotification(`📝 Link added to ${category}!`, 'success');
             
             // Make cat react
-            if (cssDesktopCat && Math.random() < 0.5) {
-                cssDesktopCat.setBehavior('stretch');
+            if (spriteDesktopCat && Math.random() < 0.5) {
+                spriteDesktopCat.setBehavior('stretch');
             }
         }
 
@@ -647,8 +522,8 @@
             showNotification(`🎉 Link visited! Great job!`, 'success');
             
             // Make cat celebrate
-            if (cssDesktopCat) {
-                cssDesktopCat.setBehavior('purr');
+            if (spriteDesktopCat) {
+                spriteDesktopCat.celebrate();
             }
         }
 
@@ -722,8 +597,8 @@
             });
         });
 
-        // CSS Desktop Cat System
-        class CSSDesktopCat {
+        // Sprite Desktop Cat System
+        class SpriteDesktopCat {
             constructor() {
                 this.cat = document.getElementById('desktopCat');
                 this.shadow = document.getElementById('catShadow');
@@ -731,14 +606,26 @@
                 this.y = Math.random() * (window.innerHeight - 100);
                 this.targetX = this.x;
                 this.targetY = this.y;
-                this.speed = 1.2;
+                this.speed = 1.0;
                 this.isMoving = false;
                 this.currentBehavior = 'idle';
                 this.direction = 'right';
                 this.behaviorTimer = 0;
                 this.behaviorDuration = 0;
+                this.animationFrame = 0;
+                this.lastFrameTime = 0;
+                this.frameDelay = 300; // milliseconds between frames
                 
-                this.behaviors = ['idle', 'walk', 'sit', 'sleep', 'stretch', 'purr'];
+                // Define animation sequences based on sprite sheet
+                this.animations = {
+                    idle: ['cat-idle-1', 'cat-idle-2', 'cat-idle-3', 'cat-idle-4'],
+                    walk: ['cat-walk-1', 'cat-walk-2', 'cat-walk-3', 'cat-walk-4'],
+                    sit: ['cat-sit-1', 'cat-sit-2'],
+                    sleep: ['cat-sleep-1', 'cat-sleep-2'],
+                    stretch: ['cat-stretch-1', 'cat-stretch-2']
+                };
+                
+                this.behaviors = ['idle', 'walk', 'sit', 'sleep', 'stretch'];
                 
                 this.init();
             }
@@ -752,7 +639,8 @@
                 
                 // Start the main loop
                 setInterval(() => this.update(), 50);
-                setInterval(() => this.chooseBehavior(), 5000);
+                setInterval(() => this.chooseBehavior(), 4000);
+                setInterval(() => this.animateSprite(), 100);
             }
             
             chooseBehavior() {
@@ -760,61 +648,54 @@
                 const rand = Math.random();
                 let behavior;
                 
-                if (rand < 0.35) behavior = 'walk';
-                else if (rand < 0.55) behavior = 'sit';
-                else if (rand < 0.70) behavior = 'idle';
-                else if (rand < 0.85) behavior = 'purr';
-                else if (rand < 0.95) behavior = 'stretch';
+                if (rand < 0.4) behavior = 'walk';
+                else if (rand < 0.6) behavior = 'sit';
+                else if (rand < 0.75) behavior = 'idle';
+                else if (rand < 0.9) behavior = 'stretch';
                 else behavior = 'sleep';
                 
                 this.setBehavior(behavior);
             }
             
             setBehavior(behavior) {
-                // Clear all behavior classes
-                this.cat.className = 'desktop-cat';
-                
                 this.currentBehavior = behavior;
                 this.behaviorTimer = Date.now();
+                this.animationFrame = 0;
                 
                 switch(behavior) {
                     case 'walk':
                         this.setRandomTarget();
-                        this.cat.classList.add('cat-walking');
-                        this.behaviorDuration = 3000 + Math.random() * 5000;
+                        this.behaviorDuration = 3000 + Math.random() * 4000;
+                        this.frameDelay = 200; // Faster animation for walking
                         break;
                     case 'sit':
-                        this.cat.classList.add('cat-sitting');
-                        this.behaviorDuration = 4000 + Math.random() * 8000;
+                        this.behaviorDuration = 4000 + Math.random() * 6000;
                         this.isMoving = false;
+                        this.frameDelay = 500; // Slower for sitting
                         break;
                     case 'sleep':
-                        this.cat.classList.add('cat-sleeping');
-                        this.behaviorDuration = 10000 + Math.random() * 15000;
+                        this.behaviorDuration = 8000 + Math.random() * 12000;
                         this.isMoving = false;
+                        this.frameDelay = 800; // Very slow for sleeping
                         break;
                     case 'stretch':
-                        this.cat.classList.add('cat-stretching');
-                        this.behaviorDuration = 3000;
+                        this.behaviorDuration = 2500;
                         this.isMoving = false;
-                        break;
-                    case 'purr':
-                        this.cat.classList.add('cat-purring');
-                        this.behaviorDuration = 2000 + Math.random() * 3000;
-                        this.isMoving = false;
+                        this.frameDelay = 400;
                         break;
                     default: // idle
                         this.behaviorDuration = 3000 + Math.random() * 5000;
                         this.isMoving = false;
+                        this.frameDelay = 400; // Medium speed for idle
                 }
                 
                 this.updateDirection();
             }
             
             setRandomTarget() {
-                const margin = 80;
-                this.targetX = margin + Math.random() * (window.innerWidth - margin * 2 - 50);
-                this.targetY = margin + Math.random() * (window.innerHeight - margin * 2 - 40);
+                const margin = 60;
+                this.targetX = margin + Math.random() * (window.innerWidth - margin * 2 - 32);
+                this.targetY = margin + Math.random() * (window.innerHeight - margin * 2 - 32);
                 this.isMoving = true;
             }
             
@@ -823,6 +704,26 @@
                     this.cat.classList.add('cat-face-left');
                 } else {
                     this.cat.classList.remove('cat-face-left');
+                }
+            }
+            
+            animateSprite() {
+                const now = Date.now();
+                if (now - this.lastFrameTime > this.frameDelay) {
+                    const animationFrames = this.animations[this.currentBehavior];
+                    if (animationFrames && animationFrames.length > 0) {
+                        this.animationFrame = (this.animationFrame + 1) % animationFrames.length;
+                        
+                        // Clear all animation classes
+                        this.cat.className = 'desktop-cat';
+                        
+                        // Add current frame class
+                        this.cat.classList.add(animationFrames[this.animationFrame]);
+                        
+                        // Maintain direction
+                        this.updateDirection();
+                    }
+                    this.lastFrameTime = now;
                 }
             }
             
@@ -848,9 +749,9 @@
                 const dy = this.targetY - this.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
                 
-                if (distance < 5) {
+                if (distance < 3) {
                     this.isMoving = false;
-                    this.cat.classList.remove('cat-walking');
+                    this.setBehavior('idle');
                     return;
                 }
                 
@@ -871,13 +772,13 @@
             updatePosition() {
                 this.cat.style.left = this.x + 'px';
                 this.cat.style.top = this.y + 'px';
-                this.shadow.style.left = (this.x + 8) + 'px';
-                this.shadow.style.top = (this.y + 35) + 'px';
+                this.shadow.style.left = (this.x + 2) + 'px';
+                this.shadow.style.top = (this.y + 28) + 'px';
             }
             
             onCatClick() {
                 // Cat reacts to clicks
-                const reactions = ['stretch', 'purr', 'sit'];
+                const reactions = ['stretch', 'sit'];
                 const reaction = reactions[Math.floor(Math.random() * reactions.length)];
                 this.setBehavior(reaction);
                 
@@ -886,35 +787,35 @@
                 saveGameData();
                 updateStats();
                 
-                showNotification('🐱 Meow! The cat loves attention!', 'success');
+                showNotification('🐱 Meow! Your cat companion is happy!', 'success');
                 
                 // Make cat briefly bigger when clicked
-                this.cat.style.transform = 'scale(1.3)';
+                this.cat.style.transform = this.direction === 'left' ? 'scaleX(-1.3) scaleY(1.3)' : 'scale(1.3)';
                 setTimeout(() => {
                     this.cat.style.transform = this.direction === 'left' ? 'scaleX(-1)' : 'scaleX(1)';
-                }, 300);
+                }, 200);
             }
             
             // Method to make cat celebrate
             celebrate() {
                 this.setBehavior('stretch');
                 setTimeout(() => {
-                    this.setBehavior('purr');
-                }, 1000);
+                    this.setBehavior('idle');
+                }, 2000);
             }
         }
 
         // Initialize everything
-        let cssDesktopCat;
+        let spriteDesktopCat;
         
         window.addEventListener('load', () => {
             loadGameData();
             updateDisplay();
             
-            // Initialize cat
+            // Initialize sprite cat
             setTimeout(() => {
-                cssDesktopCat = new CSSDesktopCat();
-                showNotification('🐱 Your cat companion has arrived!', 'info');
+                spriteDesktopCat = new SpriteDesktopCat();
+                showNotification('🐱 Your sprite cat companion has arrived!', 'info');
             }, 1000);
         });
 
