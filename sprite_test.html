@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cat Sprite Test</title>
+    <style>
+        body { 
+            background: #333; 
+            color: white; 
+            font-family: Arial; 
+            padding: 20px;
+        }
+        .sprite-display {
+            background-image: url('cat_sprite_sheet.png');
+            background-repeat: no-repeat;
+            border: 2px solid #fff;
+            margin: 10px;
+            display: inline-block;
+        }
+        .full-sprite {
+            width: 500px;
+            height: 200px;
+            background-size: contain;
+            background-position: 0 0;
+        }
+        .test-frame {
+            width: 32px;
+            height: 32px;
+            background-size: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cat Sprite Sheet Analysis</h1>
+    
+    <h2>Full Sprite Sheet:</h2>
+    <div class="sprite-display full-sprite"></div>
+    
+    <h2>Test Individual Frames (32x32 assuming):</h2>
+    <p>Frame 1 (0, 0):</p>
+    <div class="sprite-display test-frame" style="background-position: 0 0;"></div>
+    
+    <p>Frame 2 (-32px, 0):</p>
+    <div class="sprite-display test-frame" style="background-position: -32px 0;"></div>
+    
+    <p>Frame 3 (-64px, 0):</p>
+    <div class="sprite-display test-frame" style="background-position: -64px 0;"></div>
+    
+    <p>Frame 4 (-96px, 0):</p>
+    <div class="sprite-display test-frame" style="background-position: -96px 0;"></div>
+    
+    <h2>Instructions:</h2>
+    <p>1. Open this file in your browser</p>
+    <p>2. Look at the full sprite sheet to see the layout</p>
+    <p>3. Check if the individual frames look correct</p>
+    <p>4. Tell me:</p>
+    <ul>
+        <li>How many frames are in each row?</li>
+        <li>How many rows are there?</li>
+        <li>What size should each frame be? (32x32, 64x64, etc.)</li>
+        <li>What animations do you see? (idle, walk, sit, etc.)</li>
+    </ul>
+</body>
+</html>
