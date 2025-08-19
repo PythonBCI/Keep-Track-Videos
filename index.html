@@ -9,7 +9,7 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #FFFF00;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: white;
             overflow-x: hidden;
@@ -252,43 +252,152 @@
             opacity: 0.8;
         }
         
-        /* Desktop Cat Animation Styles */
+        /* CSS Desktop Cat - No images needed! */
         .desktop-cat {
             position: fixed;
-            width: 32px;
-            height: 32px;
-            background-image: url('cat_sprite_sheet.png');
-            background-size: 256px 32px; /* Adjust based on your sprite sheet dimensions */
+            width: 40px;
+            height: 30px;
             z-index: 9999;
-            pointer-events: none;
-            transition: none;
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
         
-        /* Cat animation frames - adjust based on your sprite sheet */
-        .cat-idle { background-position: 0 0; }
-        .cat-walk-1 { background-position: -32px 0; }
-        .cat-walk-2 { background-position: -64px 0; }
-        .cat-walk-3 { background-position: -96px 0; }
-        .cat-walk-4 { background-position: -128px 0; }
-        .cat-sit { background-position: -160px 0; }
-        .cat-sleep { background-position: -192px 0; }
-        .cat-stretch { background-position: -224px 0; }
+        .desktop-cat:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Cat body */
+        .cat-body {
+            position: absolute;
+            width: 25px;
+            height: 15px;
+            background: #ff6b35;
+            border-radius: 50%;
+            bottom: 5px;
+            left: 8px;
+        }
+        
+        /* Cat head */
+        .cat-head {
+            position: absolute;
+            width: 18px;
+            height: 16px;
+            background: #ff6b35;
+            border-radius: 50%;
+            bottom: 12px;
+            left: 20px;
+        }
+        
+        /* Cat ears */
+        .cat-ear {
+            position: absolute;
+            width: 6px;
+            height: 8px;
+            background: #ff6b35;
+            border-radius: 50% 50% 0 0;
+            top: 2px;
+        }
+        
+        .cat-ear.left { left: 2px; }
+        .cat-ear.right { right: 2px; }
+        
+        /* Cat tail */
+        .cat-tail {
+            position: absolute;
+            width: 3px;
+            height: 12px;
+            background: #ff6b35;
+            border-radius: 50%;
+            bottom: 8px;
+            left: 2px;
+            transform-origin: bottom;
+            animation: tail-wag 2s ease-in-out infinite;
+        }
+        
+        /* Cat legs */
+        .cat-leg {
+            position: absolute;
+            width: 3px;
+            height: 8px;
+            background: #ff6b35;
+            border-radius: 50%;
+            bottom: 0px;
+        }
+        
+        .cat-leg.front-left { left: 12px; }
+        .cat-leg.front-right { left: 18px; }
+        .cat-leg.back-left { left: 8px; }
+        .cat-leg.back-right { left: 14px; }
+        
+        /* Cat eyes */
+        .cat-eye {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #000;
+            border-radius: 50%;
+            top: 6px;
+        }
+        
+        .cat-eye.left { left: 3px; }
+        .cat-eye.right { right: 3px; }
+        
+        /* Cat animations */
+        @keyframes tail-wag {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(15deg); }
+        }
+        
+        @keyframes cat-walk {
+            0%, 100% { transform: translateY(0px); }
+            25% { transform: translateY(-2px); }
+            75% { transform: translateY(-1px); }
+        }
+        
+        @keyframes cat-stretch {
+            0%, 100% { transform: scaleX(1); }
+            50% { transform: scaleX(1.3); }
+        }
+        
+        @keyframes cat-sleep {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.6; }
+        }
+        
+        /* Cat states */
+        .cat-walking {
+            animation: cat-walk 0.6s ease-in-out infinite;
+        }
+        
+        .cat-stretching {
+            animation: cat-stretch 2s ease-in-out;
+        }
+        
+        .cat-sleeping {
+            animation: cat-sleep 3s ease-in-out infinite;
+        }
+        
+        .cat-sitting .cat-body {
+            height: 18px;
+            border-radius: 50% 50% 0 0;
+        }
+        
+        .cat-sitting .cat-tail {
+            transform: rotate(45deg);
+            animation: none;
+        }
         
         /* Cat facing directions */
         .cat-face-left {
             transform: scaleX(-1);
         }
         
-        .cat-face-right {
-            transform: scaleX(1);
-        }
-        
         /* Cat shadow */
         .cat-shadow {
             position: fixed;
-            width: 24px;
+            width: 30px;
             height: 8px;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.2);
             border-radius: 50%;
             z-index: 9998;
             pointer-events: none;
@@ -320,9 +429,22 @@
 <body>
     <div class="particles" id="particles"></div>
     
-    <!-- Desktop Cat -->
+    <!-- CSS Desktop Cat -->
     <div class="cat-shadow" id="catShadow"></div>
-    <div class="desktop-cat cat-idle cat-face-right" id="desktopCat"></div>
+    <div class="desktop-cat" id="desktopCat">
+        <div class="cat-body"></div>
+        <div class="cat-head">
+            <div class="cat-ear left"></div>
+            <div class="cat-ear right"></div>
+            <div class="cat-eye left"></div>
+            <div class="cat-eye right"></div>
+        </div>
+        <div class="cat-tail"></div>
+        <div class="cat-leg front-left"></div>
+        <div class="cat-leg front-right"></div>
+        <div class="cat-leg back-left"></div>
+        <div class="cat-leg back-right"></div>
+    </div>
     
     <div class="game-header">
         <div class="level-display">LEVEL <span id="playerLevel">1</span></div>
@@ -635,27 +757,22 @@
         // Create some ambient particles
         setInterval(createParticles, 2000);
 
-        // Desktop Cat System
-        class DesktopCat {
+        // CSS Desktop Cat System - Completely Self-Contained!
+        class CSSDesktopCat {
             constructor() {
                 this.cat = document.getElementById('desktopCat');
                 this.shadow = document.getElementById('catShadow');
-                this.x = Math.random() * (window.innerWidth - 64);
-                this.y = Math.random() * (window.innerHeight - 64);
+                this.x = Math.random() * (window.innerWidth - 100);
+                this.y = Math.random() * (window.innerHeight - 100);
                 this.targetX = this.x;
                 this.targetY = this.y;
-                this.speed = 1;
+                this.speed = 0.8;
                 this.isMoving = false;
-                this.currentAnimation = 'idle';
-                this.direction = 'right';
-                this.animationFrame = 0;
-                this.lastFrameTime = 0;
-                this.frameDelay = 200; // milliseconds between animation frames
-                this.behaviorTimer = 0;
                 this.currentBehavior = 'idle';
+                this.direction = 'right';
+                this.behaviorTimer = 0;
                 this.behaviorDuration = 0;
                 
-                this.walkFrames = ['cat-walk-1', 'cat-walk-2', 'cat-walk-3', 'cat-walk-4'];
                 this.behaviors = ['idle', 'walk', 'sit', 'sleep', 'stretch'];
                 
                 this.init();
@@ -664,60 +781,78 @@
             init() {
                 this.updatePosition();
                 this.chooseBehavior();
-                this.animate();
                 
                 // Add click interaction
-                this.cat.style.pointerEvents = 'auto';
-                this.cat.style.cursor = 'pointer';
                 this.cat.addEventListener('click', () => this.onCatClick());
                 
                 // Start the main loop
                 setInterval(() => this.update(), 50);
-                setInterval(() => this.chooseBehavior(), 3000);
+                setInterval(() => this.chooseBehavior(), 4000);
             }
             
             chooseBehavior() {
-                const behavior = this.behaviors[Math.floor(Math.random() * this.behaviors.length)];
+                // Weighted random behavior selection
+                const rand = Math.random();
+                let behavior;
+                
+                if (rand < 0.4) behavior = 'walk';
+                else if (rand < 0.6) behavior = 'sit';
+                else if (rand < 0.75) behavior = 'idle';
+                else if (rand < 0.9) behavior = 'stretch';
+                else behavior = 'sleep';
+                
                 this.setBehavior(behavior);
             }
             
             setBehavior(behavior) {
+                // Clear all behavior classes
+                this.cat.className = 'desktop-cat';
+                
                 this.currentBehavior = behavior;
                 this.behaviorTimer = Date.now();
                 
                 switch(behavior) {
                     case 'walk':
                         this.setRandomTarget();
-                        this.behaviorDuration = 2000 + Math.random() * 3000;
+                        this.cat.classList.add('cat-walking');
+                        this.behaviorDuration = 3000 + Math.random() * 4000;
                         break;
                     case 'sit':
-                        this.setAnimation('cat-sit');
-                        this.behaviorDuration = 3000 + Math.random() * 5000;
+                        this.cat.classList.add('cat-sitting');
+                        this.behaviorDuration = 4000 + Math.random() * 6000;
+                        this.isMoving = false;
                         break;
                     case 'sleep':
-                        this.setAnimation('cat-sleep');
-                        this.behaviorDuration = 5000 + Math.random() * 10000;
+                        this.cat.classList.add('cat-sleeping');
+                        this.behaviorDuration = 8000 + Math.random() * 12000;
+                        this.isMoving = false;
                         break;
                     case 'stretch':
-                        this.setAnimation('cat-stretch');
-                        this.behaviorDuration = 2000;
+                        this.cat.classList.add('cat-stretching');
+                        this.behaviorDuration = 2500;
+                        this.isMoving = false;
                         break;
-                    default:
-                        this.setAnimation('cat-idle');
+                    default: // idle
                         this.behaviorDuration = 2000 + Math.random() * 4000;
+                        this.isMoving = false;
                 }
+                
+                this.updateDirection();
             }
             
             setRandomTarget() {
-                const margin = 50;
-                this.targetX = margin + Math.random() * (window.innerWidth - margin * 2 - 64);
-                this.targetY = margin + Math.random() * (window.innerHeight - margin * 2 - 64);
+                const margin = 60;
+                this.targetX = margin + Math.random() * (window.innerWidth - margin * 2 - 40);
+                this.targetY = margin + Math.random() * (window.innerHeight - margin * 2 - 30);
                 this.isMoving = true;
             }
             
-            setAnimation(animationClass) {
-                this.cat.className = `desktop-cat ${animationClass} cat-face-${this.direction}`;
-                this.currentAnimation = animationClass;
+            updateDirection() {
+                if (this.direction === 'left') {
+                    this.cat.classList.add('cat-face-left');
+                } else {
+                    this.cat.classList.remove('cat-face-left');
+                }
             }
             
             update() {
@@ -729,9 +864,9 @@
                     return;
                 }
                 
+                // Handle walking behavior
                 if (this.currentBehavior === 'walk' && this.isMoving) {
                     this.moveTowardsTarget();
-                    this.animateWalking(now);
                 }
                 
                 this.updatePosition();
@@ -742,17 +877,19 @@
                 const dy = this.targetY - this.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
                 
-                if (distance < 5) {
+                if (distance < 3) {
                     this.isMoving = false;
-                    this.setAnimation('cat-idle');
+                    this.cat.classList.remove('cat-walking');
                     return;
                 }
                 
-                // Update direction
-                if (dx > 0) {
+                // Update direction based on movement
+                if (dx > 0 && this.direction === 'left') {
                     this.direction = 'right';
-                } else if (dx < 0) {
+                    this.updateDirection();
+                } else if (dx < 0 && this.direction === 'right') {
                     this.direction = 'left';
+                    this.updateDirection();
                 }
                 
                 // Move towards target
@@ -760,58 +897,59 @@
                 this.y += (dy / distance) * this.speed;
             }
             
-            animateWalking(now) {
-                if (now - this.lastFrameTime > this.frameDelay) {
-                    this.animationFrame = (this.animationFrame + 1) % this.walkFrames.length;
-                    this.setAnimation(this.walkFrames[this.animationFrame]);
-                    this.lastFrameTime = now;
-                }
-            }
-            
             updatePosition() {
                 this.cat.style.left = this.x + 'px';
                 this.cat.style.top = this.y + 'px';
-                this.shadow.style.left = (this.x + 4) + 'px';
-                this.shadow.style.top = (this.y + 28) + 'px';
+                this.shadow.style.left = (this.x + 5) + 'px';
+                this.shadow.style.top = (this.y + 25) + 'px';
             }
             
             onCatClick() {
-                // Cat reacts to clicks
+                // Cat reacts to clicks with fun behaviors
                 const reactions = ['stretch', 'sit'];
                 const reaction = reactions[Math.floor(Math.random() * reactions.length)];
                 this.setBehavior(reaction);
                 
-                // Give player some XP for interacting with the cat
+                // Give player XP and show achievement
                 gainXP(5);
-                showAchievement('Cat approved! +5 XP', '🐱');
+                showAchievement('🐱 Meow! +5 XP', '🐾');
                 createParticles();
+                
+                // Make cat briefly bigger when clicked
+                this.cat.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    this.cat.style.transform = this.direction === 'left' ? 'scaleX(-1)' : 'scaleX(1)';
+                }, 200);
             }
             
             // Method to make cat react to achievements
             reactToAchievement() {
+                // Cat gets excited and stretches
                 this.setBehavior('stretch');
-                // Make cat move towards center of screen briefly
-                this.targetX = window.innerWidth / 2 - 16;
-                this.targetY = window.innerHeight / 2 + 100;
-                this.setBehavior('walk');
+                
+                // After stretching, move towards achievement popup area
+                setTimeout(() => {
+                    this.targetX = window.innerWidth / 2 - 20;
+                    this.targetY = window.innerHeight / 2 + 150;
+                    this.setBehavior('walk');
+                }, 1000);
             }
         }
         
-        // Initialize the cat
-        let desktopCat;
+        // Initialize the CSS cat
+        let cssDesktopCat;
         window.addEventListener('load', () => {
-            // Small delay to ensure everything is loaded
             setTimeout(() => {
-                desktopCat = new DesktopCat();
-            }, 1000);
+                cssDesktopCat = new CSSDesktopCat();
+            }, 500);
         });
         
-        // Make cat react to achievements (modify existing showAchievement function)
+        // Make cat react to achievements
         const originalShowAchievement = showAchievement;
         showAchievement = function(text, icon = '🎉') {
             originalShowAchievement(text, icon);
-            if (desktopCat && Math.random() < 0.7) { // 70% chance cat reacts
-                setTimeout(() => desktopCat.reactToAchievement(), 500);
+            if (cssDesktopCat && Math.random() < 0.6) { // 60% chance cat reacts
+                setTimeout(() => cssDesktopCat.reactToAchievement(), 800);
             }
         };
     </script>
