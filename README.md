@@ -12,6 +12,7 @@ A standalone desktop application for managing video quests and leveling up! Tran
 - **🏆 Achievements**: Unlock special achievements for milestones
 - **💾 Save System**: Your progress is automatically saved locally
 - **🎨 Beautiful UI**: Modern, intuitive interface with smooth animations
+- **🐱 Animated Cat**: Fluid, anatomically correct cat companion that walks around
 
 ## 🚀 Quick Start
 
@@ -68,6 +69,7 @@ This will:
 5. **Level Up**: Reach XP thresholds to increase your level
 6. **Build Streaks**: Watch videos daily to maintain streaks for bonus XP
 7. **Unlock Achievements**: Complete milestones to earn special rewards
+8. **Interact with Cat**: Click anywhere on the cat canvas to make your feline companion walk there!
 
 ## 🏆 Achievement System
 
@@ -92,6 +94,9 @@ Your game progress is automatically saved to `desktop_cat_save.json` in the same
 ```
 desktop_cat/
 ├── desktop_cat.py      # Main application
+├── cat_animation.py    # Cat animation system
+├── cat_renderer.py     # Cat graphics renderer
+├── cat_demo.py         # Standalone cat animation demo
 ├── run.py              # Simple launcher
 ├── build.py            # Build automation script
 ├── desktop_cat.spec    # PyInstaller configuration

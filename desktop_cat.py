@@ -11,6 +11,9 @@ import os
 from datetime import datetime, timedelta
 import threading
 import time
+import random
+from cat_animation import CatBody
+from cat_renderer import CatRenderer
 
 class DesktopCat:
     def __init__(self):
@@ -46,7 +49,16 @@ class DesktopCat:
         self.unlocked_achievements = []
         self.load_game_data()
         self.setup_ui()
+        
+        # Initialize cat animation system
+        self.setup_cat_animation()
+        
         self.update_display()
+        
+        # Start animation loop
+        self.animation_running = True
+        self.animation_thread = threading.Thread(target=self.animation_loop, daemon=True)
+        self.animation_thread.start()
         
     def setup_ui(self):
         # Main header
@@ -205,6 +217,19 @@ class DesktopCat:
         )
         self.achievement_text.pack(fill='x', padx=10, pady=5)
         
+        # Cat animation canvas
+        cat_canvas_frame = tk.Frame(self.root, bg='#2c3e50')
+        cat_canvas_frame.pack(fill='both', expand=True, padx=10, pady=5)
+        
+        # Create canvas for cat animation
+        self.cat_canvas = tk.Canvas(
+            cat_canvas_frame,
+            bg='#34495e',
+            height=200,
+            highlightthickness=0
+        )
+        self.cat_canvas.pack(fill='x', padx=5, pady=5)
+        
         # Save button
         save_btn = tk.Button(
             self.root,
@@ -222,6 +247,80 @@ class DesktopCat:
         style.configure('Custom.Horizontal.TProgressbar', 
                        troughcolor='#2c3e50', 
                        background='#27ae60')
+        
+    def setup_cat_animation(self):
+        """Initialize the cat animation system"""
+        # Create cat body
+        self.cat = CatBody(500, 100)  # Start in center of canvas
+        
+        # Create cat renderer
+        self.cat_renderer = CatRenderer(self.cat_canvas)
+        self.cat_renderer.add_canvas_rotation_support()
+        
+        # Bind canvas click events for cat interaction
+        self.cat_canvas.bind('<Button-1>', self.on_canvas_click)
+        
+        # Add some decorative elements to the canvas
+        self._add_canvas_decorations()
+        
+    def _add_canvas_decorations(self):
+        """Add decorative elements to the cat canvas"""
+        # Add some grass/ground
+        for i in range(0, 1000, 20):
+            self.cat_canvas.create_line(
+                i, 180, i + 10, 200,
+                fill='#27ae60', width=2, tags='grass'
+            )
+            
+        # Add some floating particles
+        for i in range(10):
+            x = random.randint(50, 950)
+            y = random.randint(20, 150)
+            self.cat_canvas.create_oval(
+                x, y, x + 3, y + 3,
+                fill='#f39c12', tags='particle'
+            )
+            
+    def on_canvas_click(self, event):
+        """Handle canvas clicks to move cat"""
+        if self.cat:
+            self.cat.set_target(event.x, event.y)
+            
+    def animation_loop(self):
+        """Main animation loop for the cat"""
+        last_time = time.time()
+        
+        while self.animation_running:
+            current_time = time.time()
+            dt = current_time - last_time
+            last_time = current_time
+            
+            # Update cat animation
+            if self.cat:
+                self.cat.update(dt)
+                
+                # Get cat drawing data
+                cat_data = self.cat.get_drawing_data()
+                
+                # Update cat on canvas (thread-safe)
+                self.root.after(0, self._update_cat_display, cat_data)
+            
+            # Control animation speed
+            time.sleep(1/60)  # 60 FPS
+            
+    def _update_cat_display(self, cat_data):
+        """Update cat display on the main thread"""
+        try:
+            self.cat_renderer.update_cat(cat_data)
+        except Exception as e:
+            print(f"Error updating cat display: {e}")
+            
+    def on_closing(self):
+        """Handle application closing"""
+        self.animation_running = False
+        if hasattr(self, 'animation_thread') and self.animation_thread.is_alive():
+            self.animation_thread.join(timeout=1)
+        self.root.destroy()
         
     def add_video(self, category, entry):
         title = entry.get().strip()
@@ -389,6 +488,8 @@ class DesktopCat:
             print(f"Failed to load save data: {e}")
             
     def run(self):
+        # Set up closing handler
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.root.mainloop()
 
 if __name__ == "__main__":
