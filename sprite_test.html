@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cat Sprite Test</title>
+    <style>
+        body { 
+            background: #333; 
+            color: white; 
+            font-family: Arial; 
+            padding: 20px;
+        }
+        
+        .test-container {
+            background: #555;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+        
+        .sprite-display {
+            background-image: url('cat_sprite_sheet.png');
+            background-repeat: no-repeat;
+            border: 2px solid #fff;
+            margin: 10px;
+            display: inline-block;
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+        }
+        
+        .full-sprite {
+            width: 500px;
+            height: 200px;
+            background-size: contain;
+            background-position: 0 0;
+        }
+        
+        .test-frame {
+            width: 32px;
+            height: 32px;
+        }
+        
+        .test-frame-large {
+            width: 64px;
+            height: 64px;
+        }
+        
+        .test-frame-48 {
+            width: 48px;
+            height: 48px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🐱 Cat Sprite Sheet Debugger</h1>
+    
+    <div class="test-container">
+        <h2>Full Sprite Sheet (scaled to fit):</h2>
+        <div class="sprite-display full-sprite"></div>
+        <p>☝️ This shows your entire sprite sheet. Can you see the cat frames?</p>
+    </div>
+    
+    <div class="test-container">
+        <h2>Testing 32x32 frames (most common):</h2>
+        <p>Frame 1 (0, 0):</p>
+        <div class="sprite-display test-frame" style="background-position: 0 0;"></div>
+        
+        <p>Frame 2 (-32px, 0):</p>
+        <div class="sprite-display test-frame" style="background-position: -32px 0;"></div>
+        
+        <p>Frame 3 (-64px, 0):</p>
+        <div class="sprite-display test-frame" style="background-position: -64px 0;"></div>
+        
+        <p>Frame 4 (-96px, 0):</p>
+        <div class="sprite-display test-frame" style="background-position: -96px 0;"></div>
+        
+        <p>Frame 5 (-128px, 0):</p>
+        <div class="sprite-display test-frame" style="background-position: -128px 0;"></div>
+    </div>
+    
+    <div class="test-container">
+        <h2>Testing 48x48 frames:</h2>
+        <p>Frame 1 (0, 0):</p>
+        <div class="sprite-display test-frame-48" style="background-position: 0 0;"></div>
+        
+        <p>Frame 2 (-48px, 0):</p>
+        <div class="sprite-display test-frame-48" style="background-position: -48px 0;"></div>
+        
+        <p>Frame 3 (-96px, 0):</p>
+        <div class="sprite-display test-frame-48" style="background-position: -96px 0;"></div>
+    </div>
+    
+    <div class="test-container">
+        <h2>Testing 64x64 frames:</h2>
+        <p>Frame 1 (0, 0):</p>
+        <div class="sprite-display test-frame-large" style="background-position: 0 0;"></div>
+        
+        <p>Frame 2 (-64px, 0):</p>
+        <div class="sprite-display test-frame-large" style="background-position: -64px 0;"></div>
+        
+        <p>Frame 3 (-128px, 0):</p>
+        <div class="sprite-display test-frame-large" style="background-position: -128px 0;"></div>
+    </div>
+    
+    <div class="test-container">
+        <h2>Testing second row (if exists):</h2>
+        <p>Row 2, Frame 1 (0, -32px):</p>
+        <div class="sprite-display test-frame" style="background-position: 0 -32px;"></div>
+        
+        <p>Row 2, Frame 2 (-32px, -32px):</p>
+        <div class="sprite-display test-frame" style="background-position: -32px -32px;"></div>
+    </div>
+    
+    <h2>📋 Instructions:</h2>
+    <ol>
+        <li><strong>Look at the full sprite sheet</strong> - can you see your cat frames?</li>
+        <li><strong>Check which frame size works</strong> - 32x32, 48x48, or 64x64?</li>
+        <li><strong>Tell me:</strong>
+            <ul>
+                <li>Can you see the cat in the full sprite view?</li>
+                <li>Which frame size shows the cat properly?</li>
+                <li>How many frames do you see for idle animation?</li>
+                <li>How many frames for walking?</li>
+                <li>Are the frames arranged horizontally or in a grid?</li>
+            </ul>
+        </li>
+    </ol>
+    
+    <p><strong>If you don't see anything:</strong> The sprite sheet might be corrupted or in a different format. Feel free to upload a new one!</p>
+</body>
+</html>
